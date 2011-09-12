@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ctx:extension name="MyContaoExtension" version="1.2.3"
+	xmlns:ctx="http://www.contao.org/extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.contao.org/extension extension.xsd ">
+	
+	<ctx:title>A real cool Contao extension.</ctx:title>
+	<ctx:title language="de">Eine wirklich tolle Contao Erweiterung.</ctx:title>
+	
+	<ctx:subtitle>Extends Contao with realy cool new features.</ctx:subtitle>
+	<ctx:subtitle language="de">Erweitert Contao mit wirklich tollen neuen Funktionen.</ctx:subtitle>
+	
+	<ctx:description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis, nisi molestie vulputate imperdiet, ipsum massa consectetur nibh, id suscipit nibh libero eu augue. Etiam hendrerit interdum arcu et tristique. Curabitur turpis felis, vehicula sed condimentum nec, vestibulum sed odio. Cras eget est at purus egestas convallis quis non purus. Aliquam tortor nulla, suscipit id iaculis in, convallis eu est. Aliquam cursus egestas orci, at faucibus erat luctus sed. Vestibulum egestas vestibulum ligula, quis porta elit tempus nec. Maecenas eget felis purus.</ctx:description>
+	<ctx:description language="de">Quisque vel elementum diam. Integer felis enim, iaculis in adipiscing eget, consequat sit amet est. Nunc auctor iaculis lacus, sed pretium leo hendrerit sit amet. Maecenas erat tellus, vulputate eget placerat semper, accumsan nec nulla. Maecenas eros elit, dapibus egestas commodo aliquet, iaculis ut nibh. Nam in nibh id nunc lacinia placerat. Cras at turpis lacus, a mattis diam. Etiam nec consectetur quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec convallis nisl sollicitudin sem cursus luctus. Quisque quis enim est, eu ultrices magna.</ctx:description>
+	
+	<ctx:logo>
+		<ctx:binary type="image/png">iVBORw0KGgoAAAANSUhEUgAAALoAAAC6AQMAAAAjwMWyAAAABlBMVEX///8AAABVwtN+AAABAUlEQVRYhe2WQQrFIAxEBzyAR/LqHskDFPyTxNpC/z5TaBCpeV3YTJ0IfPH6aJMxcABltGKLqQDgqaNOZstYmXQQ6zk7aucbc+gAbrezlGJgpXRASGuiWhEfmicBPwatxHicjySwwwD+RQaw7RbfsRlH7RwCwCws5jgMkACNKfoFjYyDwVkC+P7IyowKNgEArouJag2puMwCgEX0PjTsAfc/MRXAFY1uFAJLANcy+pBt9+a7maCGpbrPrvtEOjgFNrNwLAGuVrTmZ4/KADBjxdmw27G/IBXExWtLexVRALi9+g+3iygA1mXCb88KwKW1lB0DGhkkQBwDTyHEFQBfvDp+Boph7kWA6dAAAAAASUVORK5CYII=</ctx:binary>
+	</ctx:logo>
+	
+	<ctx:licence name="LGPL3" file="LGPL3.txt" />
+	
+	<ctx:author name="Tristan Lins" email="tristan.lins@infinitysoft.de"
+		url="http://www.infinitysoft.de" />
+		
+	<ctx:copyright name="InfinitySoft 2011" type="company" email="info@infinitysoft.de"
+		url="http://www.infinitysoft.de" />
+	
+	<ctx:link rel="homepage" href="http://www.contao.org">
+		<ctx:description>Official project homepage.</ctx:description>
+		<ctx:description language="de">Offizielle Projekthomepage.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="manual" href="http://www.contao.org/dokumentation.html" language="de">
+		<ctx:description>Offizielles Benutzerhandbuch.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="manual" href="http://www.contao.org/documentation.html" language="en">
+		<ctx:description>Official User-Manual.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="help" href="http://de.contaowiki.org" language="de">
+		<ctx:description>Inoffizielles Wiki.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="help" href="http://en.contaowiki.org" language="en">
+		<ctx:description>Inofficial Wiki.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="video" href="http://www.youtube.com/watch?feature=player_embedded&amp;v=8HkQVmfjjYc">
+		<ctx:description>Introduction into TypoLIGHT/Contao.</ctx:description>
+		<ctx:description language="de">Einführung in TypoLIGHT/Contao.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="forum" href="http://www.contao-community.de" language="de">
+		<ctx:description>German contao community.</ctx:description>
+		<ctx:description language="de">Deutsche Contao Community.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="tracker" href="http://dev.contao.org">
+		<ctx:description>Official bug and issue tracker.</ctx:description>
+		<ctx:description language="de">Offizieller Bug und Issue Tracker.</ctx:description>
+	</ctx:link>
+	<ctx:link rel="scm" href="http://svn.contao.org">
+		<ctx:description>Official svn repository.</ctx:description>
+		<ctx:description language="en">Offizielles SVN Repository.</ctx:description>
+	</ctx:link>
+	
+	<ctx:dependencies>
+		<ctx:dependency name="contao">
+			<ctx:version lowest="3.1" />
+			<ctx:description>I need some features, that are new in version 3.1!</ctx:description>
+			<ctx:description language="de">Es werden einige Funktionen benötigt, die erst in Version 3.1 eingeführt wurden.</ctx:description>
+		</ctx:dependency>
+		<ctx:group>
+			<ctx:dependency name="php:soap">
+				<ctx:description>I love soap, thats because i need this php extension.</ctx:description>
+				<ctx:description language="de">Ich liebe SOAP, deshalb benötige ich diese PHP Komponente.</ctx:description>
+			</ctx:dependency>
+			<ctx:dependency name="nusoap">
+				<ctx:description>If you dont have soap, I pleased with an alternative implementation.</ctx:description>
+				<ctx:description language="de">Wenn dir SOAP fehlt, begnüge ich mich mit einer alternativen Implementierung.</ctx:description>
+			</ctx:dependency>
+		</ctx:group>
+		<ctx:dependency name="pear:Mail">
+			<ctx:version match="1.2"/>
+			<ctx:description>I love mails, i want to send some!</ctx:description>
+			<ctx:description language="de">Ich liebe Mails, deshalb will ich welche verschicken.</ctx:description>
+		</ctx:dependency>
+	</ctx:dependencies>
+	<ctx:conflicts>
+		<ctx:conflict name="db:mysql">
+			<ctx:version match="4"/>
+			<ctx:version lowest="5" highest="5.1"/>
+			<ctx:version lowest="5.2"/>
+			<ctx:description>I'm sorry, but i only support MySQL 5.1.</ctx:description>
+			<ctx:description language="de">Ich bin untröstlich, aber ich unterstützte nur MySQL 5.1!</ctx:description>
+		</ctx:conflict>
+	</ctx:conflicts>
+	<ctx:pefers>
+		<ctx:prefer name="MyOtherContaoExtension">
+			<ctx:version match="1.5" />
+			<ctx:description>This extension is prefered, but has no new stuff.</ctx:description>
+			<ctx:description language="de">Die Erweiterung wird empfohlen, besitzt aber keine neuen Funktionen.</ctx:description>
+		</ctx:prefer>
+		<ctx:prefer name="MyThirdContaoExtension">
+			<ctx:description>I prever this extension because it gives you a lot more features.</ctx:description>
+			<ctx:description language="de">Ich empfehle diese Erweiterung weil sie noch mehr neue Funktionen mit sich bringt.</ctx:description>
+		</ctx:prefer>
+	</ctx:pefers>
+	
+	<ctx:installer>MyExtension\Installer</ctx:installer>
+	
+	<ctx:upgrade version="1.0" userdata="lossless">
+		<ctx:description>You can upgrade from version 1.0.0 with no problems.</ctx:description>
+		<ctx:description language="de">Sie können von Version 1.0.0 ohne Probleme aktualisieren.</ctx:description>
+	</ctx:upgrade>
+	<ctx:upgrade version="0" userdata="partial">
+		<ctx:description>An upgrade from a development version is not realy supported. You may have to check your settings.</ctx:description>
+		<ctx:description language="de">Ein Update von einer Entwicklungsversion wird nicht unterstützt. Sie müssen möglicherweise alle Einstellungen überprüfen.</ctx:description>
+	</ctx:upgrade>
+	
+	<ctx:downgrade version="1.2" userdata="lossless">
+		<ctx:description>A downgrade is absolutely possible.</ctx:description>
+		<ctx:description language="de">Ein Downgrade ist garantiert möglich.</ctx:description>
+	</ctx:downgrade>
+	<ctx:downgrade version="1.1" userdata="dropUnused">
+		<ctx:description>A downgrade to this version can be done without lossing your user data.</ctx:description>
+		<ctx:description language="de">Ein Downgrade zu dieser Version kann ohne Nutzdatenverlust durchgeführt werden.</ctx:description>
+	</ctx:downgrade>
+	<ctx:downgrade version="1.0" userdata="partial">
+		<ctx:description>You lose some of your user data, that is not supported by this old version.</ctx:description>
+		<ctx:description>Sie werden einige Ihrer Nutzdaten verlieren, weil diese von der Version noch nicht unterstützt wurden.</ctx:description>
+	</ctx:downgrade>
+</ctx:extension>

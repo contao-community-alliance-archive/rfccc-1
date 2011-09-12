@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.contao.org/extension"
+	xmlns:ctx="http://www.contao.org/extension" elementFormDefault="qualified">
+
+	<element name="extension">
+		<complexType>
+			<sequence>
+				<element name="title" type="ctx:text"
+					maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							Titel der Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="subtitle" type="ctx:text" minOccurs="1"
+					maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							Untertitel der Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="description" type="ctx:text"
+					minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							Beschreibung der Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="logo" type="ctx:image" maxOccurs="1"
+					minOccurs="0">
+					<annotation>
+						<documentation>Das Logo der Erweiterung.</documentation>
+					</annotation>
+				</element>
+				<element name="licence" type="ctx:license" minOccurs="0"
+					maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							Lizenz, unter der diese Erweiterung steht.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="author" type="ctx:identity" minOccurs="0"
+					maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							Autoren die an dieser Erweiterung beteiligt
+							waren.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="copyright" type="ctx:identity"
+					minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							Copyright Halter an der Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="link" type="ctx:link" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>
+							URL zum Tracker der Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="dependencies" minOccurs="0"
+					maxOccurs="unbounded" type="ctx:dependencies">
+					<annotation>
+						<documentation>
+							Abhängigkeiten dieser Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="conflicts" minOccurs="0"
+					maxOccurs="unbounded" type="ctx:conflicts">
+					<annotation>
+						<documentation>
+							Konflikte dieser Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+				<element name="pefers" minOccurs="0"
+					maxOccurs="unbounded" type="ctx:pefers">
+					<annotation>
+						<documentation>
+							Empfehlungen und optionale Abhängigkeiten
+							dieser Erweiterung.
+						</documentation>
+					</annotation>
+				</element>
+                <element name="installer" type="ctx:class" minOccurs="0">
+					<annotation>
+						<documentation>
+							Klasse die als Installations-,
+							Deinstallations- und Aktualisierungsroutine.
+						</documentation>
+					</annotation>
+				</element>
+                <element name="upgrade" type="ctx:upgrade"
+					maxOccurs="unbounded" minOccurs="0">
+					<annotation>
+						<documentation>Spezifikation der Upgrade-Fähigkeit von älteren Versionen.</documentation>
+					</annotation>
+				</element>
+				<element name="downgrade" type="ctx:downgrade"
+					maxOccurs="unbounded" minOccurs="0">
+					<annotation>
+						<documentation>Spezifikation der Downgrade-Fähigkeit zu älteren Versionen.</documentation>
+					</annotation>
+				</element>
+			</sequence>
+			<attribute name="name" type="token" use="required">
+				<annotation>
+					<documentation>Eindeutiger Name dieser Erweiterung.</documentation>
+				</annotation>
+			</attribute>
+			<attribute name="version" type="ctx:version" use="required">
+				<annotation>
+					<documentation>Version dieser Erweiterung.</documentation>
+				</annotation>
+			</attribute>
+		</complexType>
+	</element>
+
+	<simpleType name="version">
+		<annotation>
+			<documentation>Versionsstring nach dem Dokument Contao Extension
+				Repository 3 Dokumentation.</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern
+				value="(\d+)\.(\d+)(\.\d+)?([-\.][a-z]*\d*)?((\.head\.(\w+)|(\.(alpha|a|beta|b|rc|stable)\d*)?\.(\d+)))">
+			</pattern>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="versionCompare">
+		<annotation>
+			<documentation>Version zum Versionsvergleich, um die Version oder Versionen einer referenzierten Version zu definieren.</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern
+				value="(\d+)(\.\d+)?(\.\d+)?([-\.][a-z]*\d*)?(\.(head\.(\w+)|(alpha|a|beta|b|rc|stable)\d*\.(\d+)))?">
+			</pattern>
+		</restriction>
+	</simpleType>
+
+	<complexType name="text">
+		<annotation>
+			<documentation>Text in einer spezifischen Sprache.</documentation>
+		</annotation>
+		<simpleContent>
+			<extension base="string">
+				<attribute name="language" use="optional" type="language">
+					<annotation>
+						<documentation>Die Sprache dieses Textes.</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="link">
+		<sequence>
+			<element name="description" type="ctx:text" maxOccurs="unbounded" minOccurs="0">
+				<annotation>
+					<documentation>Eine Beschreibung, was der Link darstellt.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="href" use="required" type="ctx:url">
+			<annotation>
+				<documentation>Die Hyperref URL.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="rel" use="required">
+			<annotation>
+				<documentation>
+					Spezifiziert, was dieser Link darstellt.
+				</documentation>
+			</annotation>
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="homepage">
+						<annotation>
+							<documentation>
+								Link zur Homepage.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="snapshot">
+						<annotation>
+							<documentation>
+								Link zu einem Snapshot.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="screencast">
+						<annotation>
+							<documentation>
+								Link zu einem Screencast.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="video">
+						<annotation>
+							<documentation>
+								Link zu einem Video.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="help">
+						<annotation>
+							<documentation>
+								Link zur allgemeinen Hilfe.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="faq">
+						<annotation>
+							<documentation>Link zum FAQ.</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="manual">
+						<annotation>
+							<documentation>
+								Link zum Handbuch.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="forum">
+						<annotation>
+							<documentation>
+								Link zum Diskussionsforum.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="tracker">
+						<annotation>
+							<documentation>
+								Link zum Tracker.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="scm">
+						<annotation>
+							<documentation>Link zum SCM.</documentation>
+						</annotation>
+					</enumeration>
+				</restriction>
+			</simpleType>
+		</attribute>
+		<attribute name="language" type="language" use="optional">
+			<annotation>
+				<documentation>
+					Bestimmt die Sprache des Linkziels. Beispielsweise
+					um den Link zum deutschen und englischen Handbuch zu
+					unterscheiden.
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<simpleType name="url">
+		<annotation>
+			<documentation>Eine URL.</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern value=".*">
+			</pattern>
+		</restriction>
+	</simpleType>
+
+	<complexType name="identity">
+		<annotation>
+			<documentation>Persönliche oder Geschäftliche Identität.
+			</documentation>
+		</annotation>
+		<attribute name="name" use="required" type="string">
+			<annotation>
+				<documentation>Persönlicher oder Geschäftlicher Name, z.B. Martin
+					Mustermann oder Musterunternehmen GmbH
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="type" use="optional" default="personal">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="personal">
+						<annotation>
+							<documentation>Diese Identität repräsentiert eine Person.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="group">
+						<annotation>
+							<documentation>Diese Identität repräsentiert eine Gruppe.
+							</documentation>
+						</annotation>
+					</enumeration>
+					<enumeration value="company">
+						<annotation>
+							<documentation>Diese Identität repräsentiert ein Unternehmen.
+							</documentation>
+						</annotation>
+					</enumeration>
+				</restriction>
+			</simpleType>
+		</attribute>
+		<attribute name="email" use="optional" type="string">
+			<annotation>
+				<documentation>E-Mail Adresse zur Kontaktaufnahme.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="url" use="optional" type="string">
+			<annotation>
+				<documentation>Homepage zur Kontaktaufnahme.</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<complexType name="license">
+		<attribute name="name" use="required" type="string">
+			<annotation>
+				<documentation>Name der Lizenz, z.B. LGPL3</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="file" use="optional" type="string">
+			<annotation>
+				<documentation>Datei mit dem Lizenztext. Ist kein Dateiname
+					angegeben, wird eine Datei LICENCE_X gesucht, wobei X der Name der
+					Lizenz ist, z.B. LICENCE_LGPL3. Die Lizenzdatei muss auf jeden Fall mitgeliefert werden.</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<complexType name="relation">
+		<sequence>
+			<element name="version" minOccurs="0"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Die Version(en) der referenzierten Erweiterung.
+					</documentation>
+				</annotation>
+				<complexType>
+					<attribute name="match" type="ctx:versionCompare">
+						<annotation>
+							<documentation>Exakte Versionsübereinstimmung.</documentation>
+						</annotation>
+					</attribute>
+					<attribute name="lowest" type="ctx:versionCompare">
+						<annotation>
+							<documentation>Kleinste zutreffende Version. (inklusiv)</documentation>
+						</annotation>
+					</attribute>
+					<attribute name="lowest_bound" type="ctx:bound" default="inclusive">
+						<annotation>
+							<documentation>Bestimmt, ob die kleinste zutreffende Version inklusiv oder exklusiv betrachtet wird.</documentation>
+						</annotation>
+					</attribute>
+					<attribute name="highest" type="ctx:versionCompare">
+						<annotation>
+							<documentation>Größte zutreffende Version. (exklusiv)</documentation>
+						</annotation>
+					</attribute>
+					<attribute name="highest_bound" type="ctx:bound" default="exclusive">
+						<annotation>
+							<documentation>Bestimmt, ob die größte zutreffende Version inklusiv oder exklusiv betrachtet wird.</documentation>
+						</annotation>
+					</attribute>
+				</complexType>
+			</element>
+			<element name="description" type="ctx:text" minOccurs="0"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Beschreibung der Referenz zu der Erweiterung. Hier
+						kann beispielsweise beschrieben werden, warum eine Abhängigkeit
+						oder Konflikt besteht oder die Erweiterung empfohlen wurde.
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="name" use="required" type="string">
+			<annotation>
+				<documentation>Name der Erweiterung zu der die Beziehung bezieht.
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	
+	<simpleType name="bound">
+		<annotation>
+			<documentation>Inklusiv/Exklusiv Betrachtung der Grenze.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="inclusive">
+				<annotation>
+					<documentation>Inklusive Betrachtung.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="exclusive">
+				<annotation>
+					<documentation>Exklusive Betrachtung.</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="dependencies">
+		<choice minOccurs="0" maxOccurs="unbounded">
+			<element name="dependency"
+				type="ctx:relation">
+				<annotation>
+					<documentation>Abhängigkeit zu einer Erweiterung.</documentation>
+				</annotation>
+			</element>
+			<element name="group">
+				<annotation></annotation>
+				<complexType>
+					<sequence>
+						<element minOccurs="0" maxOccurs="unbounded" name="dependency"
+							type="ctx:relation">
+							<annotation>
+								<documentation>Alternative Abhängigkeit zu einer Erweiterung in dieser Gruppe.</documentation>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="conflicts">
+		<choice>
+			<element minOccurs="0" maxOccurs="unbounded" name="conflict"
+				type="ctx:relation">
+				<annotation>
+					<documentation>Konflikt zu einer Erweiterung.</documentation>
+				</annotation>
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="pefers">
+		<choice>
+			<element minOccurs="0" maxOccurs="unbounded" name="prefer"
+				type="ctx:relation">
+				<annotation>
+					<documentation>Empfehlung einer Erweiterung.</documentation>
+				</annotation>
+			</element>
+		</choice>
+	</complexType>
+	
+    <complexType name="upgrade">
+    	<annotation>
+    		<documentation>
+    			Definiert die Upgrade Fähigkeit dieser Version, von früheren Versionen.
+    		</documentation>
+    	</annotation>
+    	<sequence>
+    		<element name="description" type="ctx:text" maxOccurs="unbounded" minOccurs="0">
+    			<annotation>
+    				<documentation>Beschreibung der Upgradefähigkeit/-folgen.</documentation>
+    			</annotation>
+    		</element>
+    	</sequence>
+    	<attribute name="version" type="ctx:versionCompare" use="required">
+    		<annotation>
+    			<documentation>Die älteste Version, für die diese Regel gilt.</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="userdata" type="ctx:userdata" default="partial" />
+    </complexType>
+
+    <complexType name="downgrade">
+    	<annotation>
+    		<documentation>
+    			Definiert die Downgrade Fähigkeit dieser Version, von
+    			jüngeren Versionen.
+    		</documentation>
+    	</annotation>
+    	<sequence>
+    		<element name="description" type="ctx:text" maxOccurs="unbounded" minOccurs="0">
+    			<annotation>
+    				<documentation>Beschreibung der Downgradefähigkeit/-folgen.</documentation>
+    			</annotation>
+    		</element>
+    	</sequence>
+    	<attribute name="version" type="ctx:versionCompare" use="required">
+    		<annotation>
+    			<documentation>
+    				Die jüngere Version, für die diese Regel gilt.
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="userdata" type="ctx:userdata" default="partial" />
+    </complexType>
+
+	<simpleType name="userdata">
+		<restriction base="string">
+			<enumeration value="lossless">
+				<annotation>
+					<documentation>Von dieser Version kann ohne Datenverlusst aktualisiert werden.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="dropUnused">
+				<annotation>
+					<documentation>Beim Upgrade/Downgrade gehen nicht mehr benötigte Informationen verloren.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="partial">
+				<annotation>
+					<documentation>Beim Upgrade/Downgrade können Nutzerdaten verloren gehen, beispielsweise wenn diese im neuen Schema nicht mehr vorkommen. (Löschen eines Feature)</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+   	
+    <simpleType name="class">
+    	<restriction base="string">
+    		<pattern value="[a-zA-Z_][a-zA-Z0-9_]*(\\[a-zA-Z_][a-zA-Z0-9_]*)*"></pattern>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="image">
+    	<choice>
+    		<element name="url" type="ctx:url">
+    			<annotation>
+    				<documentation>Externe URL zu dem Bild.</documentation>
+    			</annotation>
+    		</element>
+    		<element name="binary">
+    			<annotation>
+    				<documentation>Das Bild eingebettet in base64 Kodierung.</documentation>
+    			</annotation>
+    			<complexType>
+    				<simpleContent>
+    					<extension base="base64Binary">
+    						<attribute name="type">
+    							<annotation>
+    								<documentation>Definiert den Bildtyp der Binärdaten.</documentation>
+    							</annotation>
+    							<simpleType>
+    								<restriction base="string">
+    									<enumeration value="image/png">
+    										<annotation>
+    											<documentation>Das Bild ist ein PNG.</documentation>
+    										</annotation>
+    									</enumeration>
+    									<enumeration value="image/jpeg">
+    										<annotation>
+    											<documentation>Das Bild ist ein JPEG.</documentation>
+    										</annotation>
+    									</enumeration>
+    									<enumeration value="image/gif">
+    										<annotation>
+    											<documentation>Das Bild ist ein GIF.</documentation>
+    										</annotation>
+    									</enumeration>
+    								</restriction>
+    							</simpleType>
+    						</attribute>
+    					</extension>
+    				</simpleContent>
+    			</complexType>
+    		</element>
+    	</choice>
+    </complexType>
+</schema>
