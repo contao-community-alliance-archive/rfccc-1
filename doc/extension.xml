@@ -42,7 +42,7 @@
 	</ctx:link>
 	<ctx:link rel="video" href="http://www.youtube.com/watch?feature=player_embedded&amp;v=8HkQVmfjjYc">
 		<ctx:description>Introduction into TypoLIGHT/Contao.</ctx:description>
-		<ctx:description language="de">Einführung in TypoLIGHT/Contao.</ctx:description>
+		<ctx:description language="de">Einfuehrung in TypoLIGHT/Contao.</ctx:description>
 	</ctx:link>
 	<ctx:link rel="forum" href="http://www.contao-community.de" language="de">
 		<ctx:description>German contao community.</ctx:description>
@@ -61,16 +61,16 @@
 		<ctx:dependency name="contao">
 			<ctx:version lowest="3.1" />
 			<ctx:description>I need some features, that are new in version 3.1!</ctx:description>
-			<ctx:description language="de">Es werden einige Funktionen benötigt, die erst in Version 3.1 eingeführt wurden.</ctx:description>
+			<ctx:description language="de">Es werden einige Funktionen benoetigt, die erst in Version 3.1 eingefuehrt wurden.</ctx:description>
 		</ctx:dependency>
 		<ctx:group>
 			<ctx:dependency name="php:soap">
 				<ctx:description>I love soap, thats because i need this php extension.</ctx:description>
-				<ctx:description language="de">Ich liebe SOAP, deshalb benötige ich diese PHP Komponente.</ctx:description>
+				<ctx:description language="de">Ich liebe SOAP, deshalb benoetige ich diese PHP Komponente.</ctx:description>
 			</ctx:dependency>
 			<ctx:dependency name="nusoap">
 				<ctx:description>If you dont have soap, I pleased with an alternative implementation.</ctx:description>
-				<ctx:description language="de">Wenn dir SOAP fehlt, begnüge ich mich mit einer alternativen Implementierung.</ctx:description>
+				<ctx:description language="de">Wenn dir SOAP fehlt, begnuege ich mich mit einer alternativen Implementierung.</ctx:description>
 			</ctx:dependency>
 		</ctx:group>
 		<ctx:dependency name="pear:Mail">
@@ -84,8 +84,8 @@
 			<ctx:version match="4"/>
 			<ctx:version lowest="5" highest="5.1"/>
 			<ctx:version lowest="5.2"/>
-			<ctx:description>I'm sorry, but i only support MySQL 5.1.</ctx:description>
-			<ctx:description language="de">Ich bin untröstlich, aber ich unterstützte nur MySQL 5.1!</ctx:description>
+			<ctx:description>I am sorry, but i only support MySQL 5.1.</ctx:description>
+			<ctx:description language="de">Ich bin untroestlich, aber ich unterstuetzte nur MySQL 5.1!</ctx:description>
 		</ctx:conflict>
 	</ctx:conflicts>
 	<ctx:pefers>
@@ -104,23 +104,23 @@
 	
 	<ctx:upgrade version="1.0" userdata="lossless">
 		<ctx:description>You can upgrade from version 1.0.0 with no problems.</ctx:description>
-		<ctx:description language="de">Sie können von Version 1.0.0 ohne Probleme aktualisieren.</ctx:description>
+		<ctx:description language="de">Sie koennen von Version 1.0.0 ohne Probleme aktualisieren.</ctx:description>
 	</ctx:upgrade>
 	<ctx:upgrade version="0" userdata="partial">
 		<ctx:description>An upgrade from a development version is not realy supported. You may have to check your settings.</ctx:description>
-		<ctx:description language="de">Ein Update von einer Entwicklungsversion wird nicht unterstützt. Sie müssen möglicherweise alle Einstellungen überprüfen.</ctx:description>
+		<ctx:description language="de">Ein Update von einer Entwicklungsversion wird nicht unterstuetzt. Sie muessen moeglicherweise alle Einstellungen ueberpruefen.</ctx:description>
 	</ctx:upgrade>
 	
 	<ctx:downgrade version="1.2" userdata="lossless">
 		<ctx:description>A downgrade is absolutely possible.</ctx:description>
-		<ctx:description language="de">Ein Downgrade ist garantiert möglich.</ctx:description>
+		<ctx:description language="de">Ein Downgrade ist garantiert moeglich.</ctx:description>
 	</ctx:downgrade>
 	<ctx:downgrade version="1.1" userdata="dropUnused">
 		<ctx:description>A downgrade to this version can be done without lossing your user data.</ctx:description>
-		<ctx:description language="de">Ein Downgrade zu dieser Version kann ohne Nutzdatenverlust durchgeführt werden.</ctx:description>
+		<ctx:description language="de">Ein Downgrade zu dieser Version kann ohne Nutzdatenverlust durchgefuehrt werden.</ctx:description>
 	</ctx:downgrade>
 	<ctx:downgrade version="1.0" userdata="partial">
 		<ctx:description>You lose some of your user data, that is not supported by this old version.</ctx:description>
-		<ctx:description>Sie werden einige Ihrer Nutzdaten verlieren, weil diese von der Version noch nicht unterstützt wurden.</ctx:description>
+		<ctx:description>Sie werden einige Ihrer Nutzdaten verlieren, weil diese von der Version noch nicht unterstuetzt wurden.</ctx:description>
 	</ctx:downgrade>
 </ctx:extension>
