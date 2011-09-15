@@ -41,13 +41,13 @@ To eliminate problems with the vanilla extension in the main repository, the age
 Using this scheme one can prevent unwanted upgrading (see \ref{sec:versioncompatibility}). In contrast to the other components of the version, the build number is the only one that can not be influenced by the developer. The build number is incremented by one for every package being uploaded into the repository but not when the description or the properties are changing. This is in contrast to the old ER, which incremented the build number upon every change to the extension.
 
 \section[sec:versioncompatibility]{Version compatibility}
-Thanks to the \techTerm{extension} component of the versuion, it is possible to tag modified variants of an extension. These variants are in most cases incompatible to newer (vanilla) releases of the same extension.
+Thanks to the \techTerm{extension} component of the version, it is possible to tag modified variants of an extension. These variants are in most cases incompatible to newer (vanilla) releases of the same extension.
 
 To address these potentional problems, the following version compatibility rules are in place.
 
 Versions are compatible if, and only if the following conditions are met:
 \begin{itemize}
-  \item ...the alphanumeric representation of the \techTerm{extension} component is identical.
+  \item ...the alphabetic representation of the \techTerm{extension} component is identical.
   \item ...the extension component is omitted on both versions.
 \end{itemize}
 
@@ -197,8 +197,8 @@ In the package information file, this might look like the following when definin
 In above example definition we have a conflict for:
 \begin{itemize}
 \item all version 4 drivers.
-\item all versions 5 to 5.1 ( 5>=X<5.1)
-\item all versions from 5.2 on upwards (5.2>=X)
+\item all versions 5 to 5.1 ( 5<=X<5.1)
+\item all versions from 5.2 on upwards (5.2<=X)
 \end{itemize}
 With above condition we define a conflict for all versions of MySQL except for version 5.1 (we could have done it more simple though).
 
@@ -216,7 +216,7 @@ Currently the following namespaces exist.\\
 contao         & The contao core.\\
 php:[feature]  & Relates to a certain php feature. See php features in \ref{sec:package relationship namespaces php features}\\
 pear:[package] & Relates to a certain pear package. See pear packages in \ref{sec:package relationship namespaces pear packages}.\\
-db:type        & Relates to a certain database, \ie db:mysql. See database drivers in \ref{sec:package relationship namespaces database drivers}.\\
+db:[type]      & Relates to a certain database, \ie db:mysql. See database drivers in \ref{sec:package relationship namespaces database drivers}.\\
 \end{tabular}
 
 \subsubsection[sec:alternative dependencies]{Alternative dependencies}
