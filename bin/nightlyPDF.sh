@@ -4,7 +4,7 @@
 # parameter 1, target directory
 TARGET_DIR="$1"
 # parameter 2, url prefix
-URL="$3"
+URL="$2"
 
 # the local repository
 CACHE="$HOME/.contao-er3-nigthly"
