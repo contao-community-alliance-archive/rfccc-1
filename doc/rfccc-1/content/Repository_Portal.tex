@@ -1,3 +1,84 @@
-\chapter{Repository Portal}
-\todo{translation}
-Das Portal ist ein öffentliches Web-Interface, um ein Repository zu durchsuchen. Entwickler können sich im Portal registrieren und Ihre eigenen Erweiterungen in das Repository einstellen.
+\section[sec:repository portal]{Repository Portal}
+
+The portal is a public interface. It links external services to provide additional informations for extensions, that are available on the world wide web.
+
+First it is a repository browser. Users can browse and search extensions and show details of them.
+Secondary it is a information aggregator to display related informations.
+
+A package contains links to other sources, see \ref{sec:package information file}.
+\lstset{language=XML} 
+\begin{lstlisting}[caption=XML example: links to other sources]
+...
+<ctx:link rel="homepage" href="http://www.contao.org">
+    <ctx:description>Official project homepage.</ctx:description>
+</ctx:link>
+<ctx:link rel="manual" href="http://www.contao.org/documentation.html" language="en">
+    <ctx:description>Official User-Manual.</ctx:description>
+</ctx:link>
+<ctx:link rel="help" href="http://en.contaowiki.org" language="en">
+    <ctx:description>Inofficial Wiki.</ctx:description>
+</ctx:link>
+<ctx:link rel="video" href="http://www.youtube.com/watch?feature=player_embedded&amp;v=8HkQVmfjjYc">
+    <ctx:description>Introduction into TypoLIGHT/Contao.</ctx:description>
+</ctx:link>
+<ctx:link rel="forum" href="http://www.contao-community.de" language="de">
+    <ctx:description>German contao community.</ctx:description>
+</ctx:link>
+<ctx:link rel="tracker" href="http://dev.contao.org">
+    <ctx:description>Official bug and issue tracker.</ctx:description>
+</ctx:link>
+<ctx:link rel="scm" href="http://svn.contao.org">
+    <ctx:description>Official svn repository.</ctx:description>
+</ctx:link>
+...
+\end{lstlisting}
+The portal use this links and try to fetch related informations from these systems. I.e. this can be bugs and issues from a tracking system like Redmine or Github. Or screencast from YouTube. Or tutorials from a MediaWiki.
+
+The Portal is not only an information aggregator. Not only the developer can link external informations to a extensions.
+Other users can link ther own informations, like tutorials, screencasts or similar to an extension.
+Theses links are stored in the portal, but not in the extension information. This is the social networking character of the Portal.
+
+\subsection[sec:information kinds and system connectors]{Information kinds and system connectors}
+
+The Portal use multiple connectors to get informations from other systems.
+First we have to define the kind of informations, we are able to aggregate.
+
+\begin{itemize}
+\item Bugs and issues\\
+The portal can display bugs and issues to show the current development status and upstream development.
+\item Manuals and Tutorials - Wiki informations\\
+One of the best ways to manage manuals and tutorials is to use a wiki. The portal can display related wiki articles.
+\item Videos and Screencasts\\
+Videos and screencasts are another kind of tutorials. The portal can display videos hosted on video streaming platforms like YouTube.
+\item Source code\\
+If an scm repository is configured, the portal can directly link to the source code.
+\end{itemize}
+
+These are just a few possible information kinds, the repository may use.
+
+Next we have to define how the informations are aggregated.
+A lot of systems like \hyperlink{http://www.mediawiki.org/wiki/API:Main_page/de}{MediaWiki}, \hyperlink{http://code.google.com/intl/de-DE/apis/youtube/overview.html}{YouTube} and \hyperlink{http://developer.github.com/v3/}{github} provide external APIs.
+The Portal use connectors to this systems to get informations.
+Because not all theses services are uniq, like MediaWiki the systems have to be configures dynamicaly.
+All users are allowed to request adding a service, but only administrators are able to add them finaly into the portal.
+Initialy there may be these connectors availeable:
+
+\small
+\begin{longtable}{|p{0.25\textwidth}|c|c|c|c}
+\caption{Information system connectors and information kinds} \\
+\hline
+\label{tab:versioncompatexamples}
+\textbf{System} & \textbf{Tracking} & \textbf{Wiki} & \textbf{Video} & \textbf{SCM}
+\\ \hline
+ MediaWiki & & X & &
+\\ \hline
+ Redmine & X & X & &
+\\ \hline
+ Github & X & X & & X
+\\ \hline
+ YouTube & & & X &
+\\ \hline
+ Vimeo & & & X &
+\\ \hline
+\end{longtable}
+\normalsize
