@@ -12,6 +12,8 @@ TWITTER_USER="$4"
 
 # the local repository
 CACHE="/var/cache/contao-er3-nigthly"
+TEXFILE="rfccc-1.tex"
+TEXFILEDIR="/doc/rfccc-1"
 
 # clone or update the repository
 if [[ ! -d "$CACHE" ]]; then
@@ -35,7 +37,7 @@ else
 fi
 
 # enter the rfccc-1 document
-cd "$CACHE/git/doc/rfccc-1"
+cd "$CACHE/git/$TEXFILEDIR"
 
 # find previous commit
 if [[ -f "$CACHE/nightly-commit" ]]; then
@@ -49,21 +51,27 @@ CURRENT=$(git log -1 | head -1)
 
 # generate nightly build if there is a new commit
 if [[ "$PREVIOUS" != "$CURRENT" ]]; then
-	# generate index
-	pdflatex rfccc-1.tex
+	TEXFILE="rfccc-1.tex"
+	PDFFILE="`basename $TEXFILE .tex`.pdf"
+	PDFFILENIGHTLY="`basename $TEXFILE .tex`-nightly.pdf"
+	MPOSTFILE="`basename $TEXFILE .tex`.mp"
 
+	# generate index
+	pdflatex -interaction=nonstopmode $TEXFILE
+	# generate diagrams
+	mpost --interaction nonstopmode $MPOSTFILE
 	# generate final pdf
-	pdflatex rfccc-1.tex
+	pdflatex -interaction=nonstopmode  $TEXFILE
 
 	# change owner
-	chown "$OWNER" "rfccc-1.pdf"
+	chown "$OWNER" $PDFFILE
 
 	# move to new location
-	mv "rfccc-1.pdf" "$TARGET_DIR/rfccc-1-nightly.pdf"
+	mv $PDFFILE "$TARGET_DIR/$PDFFILENIGHTLY"
 
 	# tweet
 	if [[ -n "$URL" && -n "$TWITTER_USER" ]]; then
-		sudo -u "$TWITTER_USER" -H twidge update "New nightly build of Contao ER3 documentation is available. $URL/rfccc-1-nightly.pdf"
+		sudo -u "$TWITTER_USER" -H twidge update "New nightly build of Contao ER3 documentation is available. $URL/$PDFFILENIGHTLY"
 	fi
 
 	# save the current commit

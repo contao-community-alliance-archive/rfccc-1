@@ -1,0 +1,139 @@
+% ------------------------------------------------------------------------------
+% Formatvorlage für RFCCC1
+% ------------------------------------------------------------------------------
+%   erstellt von Christian Schiffler, 25.11.2010
+%   basierend auf Arbeiten von Stefan Macke, 24.04.2009
+%   http://blog.stefan-macke.de
+
+% Dokumentenkopf ---------------------------------------------------------------
+%   Diese Vorlage basiert auf "scrbook" aus dem koma-script.
+% ------------------------------------------------------------------------------
+\documentclass[
+    fontsize=11pt, % Schriftgröße
+    DIV10,
+    a4paper, % Papierformat
+    %oneside, % einseitiges Dokument
+    openany, % remove empty pages after a chapter if chapter starts on the "left" hand
+    titlepage, % es wird eine Titelseite verwendet
+    parskip=half, % Abstand zwischen Absätzen (halbe Zeile)
+    headings=normal, % Größe der Überschriften verkleinern
+    listof=totoc, % Verzeichnisse im Inhaltsverzeichnis aufführen
+    bibliography=totoc, % Literaturverzeichnis im Inhaltsverzeichnis aufführen
+    index=totoc, % Index im Inhaltsverzeichnis aufführen
+    captions=tableheading, % Beschriftung von Tabellen unterhalb ausgeben
+    final % Status des Dokuments (final/draft)
+]{scrbook}
+
+% Umlaute ----------------------------------------------------------------------
+%   Umlaute/Sonderzeichen wie äüöß direkt im Quelltext verwenden (CodePage).
+%   Erlaubt automatische Trennung von Worten mit Umlauten.
+% ------------------------------------------------------------------------------
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp} % Euro-Zeichen etc.
+
+% Meta-Informationen -----------------------------------------------------------
+%   Informationen über das Dokument, wie z.B. Titel, Autor, etc.
+%   werden in der Datei Meta.tex definiert und können danach global
+%   verwendet werden.
+% ------------------------------------------------------------------------------
+\input{content/Meta}
+
+% benötigte Packages -----------------------------------------------------------
+%   LaTeX-Packages, die benötigt werden, sind in die Datei Packages.tex
+%   "ausgelagert", um diese Vorlage möglichst übersichtlich zu halten.
+% ------------------------------------------------------------------------------
+\input{texbase/Packages}
+
+% Erstellung eines Index und Abkürzungsverzeichnisses aktivieren ---------------
+\makeindex
+\makenomenclature
+\makeglossaries
+
+% Kopf- und Fußzeilen, Seitenränder etc. ---------------------------------------
+\input{texbase/PageStyle}
+
+% eigene Definitionen für Silbentrennung
+\include{texbase/Hyphenation}
+
+% eigene LaTeX-Befehle
+\include{texbase/Commands}
+
+% Das eigentliche Dokument -----------------------------------------------------
+%   Der eigentliche Inhalt des Dokuments beginnt hier. Die einzelnen Seiten
+%   und Kapitel werden in eigene Dateien ausgelagert und hier nur inkludiert.
+% ------------------------------------------------------------------------------
+\begin{document}
+
+% auch subsubsection nummerieren
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Deckblatt und Abstract ohne Seitenzahl
+\ofoot{}
+\include{texbase/TitlePage}
+\include{content/Abstract}
+\ofoot{\pagemark}
+
+
+% arabische Seitenzahlen im Hauptteil ------------------------------------------
+\clearpage
+\pagenumbering{arabic}
+\tableofcontents % Inhaltsverzeichnis
+
+% UML support
+\begin{empfile}
+\begin{empcmds}
+input metauml;
+\end{empcmds}
+% die Inhaltskapitel werden in "Content.tex" inkludiert -------------------------
+\input{content/Content}
+% UML support
+\end{empfile}
+
+% Seitennummerierung -----------------------------------------------------------
+%   Nach dem Hauptteil werden die Seiten in großen römischen Ziffern 
+%   nummeriert.
+% ------------------------------------------------------------------------------
+\pagenumbering{Roman}
+
+% Anhang -----------------------------------------------------------------------
+%   Die Inhalte des Anhangs werden analog zu den Kapiteln inkludiert.
+%   Dies geschieht in der Datei "Appendix.tex".
+% ------------------------------------------------------------------------------
+\begin{appendix}
+    \clearpage
+    \chapter{Appendix}
+    \label{sec:Appendix}
+    \pagenumbering{roman}
+    % Rand der Aufzählungen in Tabellen anpassen
+    \setdefaultleftmargin{0em}{}{}{}{}{}
+    \input{content/Appendix}
+\end{appendix}
+
+% Abkürzungsverzeichnis --------------------------------------------------------
+\input{content/Glossar}
+% für korrekte Überschrift in der Kopfzeile
+\clearpage\markboth{\nomname}{\nomname} 
+\printnomenclature
+\label{sec:Glossar}
+
+\listoffigures % Abbildungsverzeichnis
+\listoftables % Tabellenverzeichnis
+\renewcommand{\lstlistlistingname}{List of Listings}
+\lstlistoflistings % Listings-Verzeichnis
+
+% Literaturverzeichnis ---------------------------------------------------------
+%   Das Literaturverzeichnis wird aus der BibTeX-Datenbank "Bibliographie.bib"
+%   erstellt.
+% ------------------------------------------------------------------------------
+\bibliography{Bibliographie} % Aufruf: bibtex RFCCC1
+\bibliographystyle{natdin} % DIN-Stil des Literaturverzeichnisses
+
+% Index ------------------------------------------------------------------------
+%   Zum Erstellen eines Index, die folgende Zeile auskommentieren.
+% ------------------------------------------------------------------------------
+\printindex
+\printglossaries
+
+\end{document}

@@ -1,0 +1,167 @@
+% Anpassung des Seitenlayouts --------------------------------------------------
+%   siehe Seitenstil.tex
+% ------------------------------------------------------------------------------
+\usepackage[
+    automark, % Kapitelangaben in Kopfzeile automatisch erstellen
+    headsepline, % Trennlinie unter Kopfzeile
+    ilines % Trennlinie linksbündig ausrichten
+]{scrpage2}
+
+\usepackage{ucs}
+
+% Schrift ----------------------------------------------------------------------
+\usepackage{lmodern} % bessere Fonts
+\usepackage{relsize} % Schriftgröße relativ festlegen
+
+% Befehle aus AMSTeX für mathematische Symbole z.B. \boldsymbol \mathbb --------
+\usepackage{amsmath,amsfonts}
+
+% für Index-Ausgabe mit \printindex --------------------------------------------
+\usepackage{makeidx}
+
+% für Glossar-Ausgabe mit \printglossaries -------------------------------------
+\usepackage{glossaries}
+
+% Einfache Definition der Zeilenabstände und Seitenränder etc. -----------------
+\usepackage{setspace}
+\usepackage{geometry}
+
+% Symbolverzeichnis ------------------------------------------------------------
+%   Symbolverzeichnisse bequem erstellen. Beruht auf MakeIndex:
+%     makeindex.exe %Name%.nlo -s nomencl.ist -o %Name%.nls
+%   erzeugt dann das Verzeichnis. Dieser Befehl kann z.B. im TeXnicCenter
+%   als Postprozessor eingetragen werden, damit er nicht ständig manuell
+%   ausgeführt werden muss.
+%   Die Definitionen sind ausgegliedert in die Datei "Glossar.tex".
+% ------------------------------------------------------------------------------
+\usepackage[intoc]{nomencl}
+\let\abbrev\nomenclature
+\renewcommand{\nomname}{Abkürzungsverzeichnis}
+\setlength{\nomlabelwidth}{.25\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+\setlength{\nomitemsep}{-\parsep}
+
+% zum Umfließen von Bildern ----------------------------------------------------
+\usepackage{floatflt}
+
+
+% zum Einbinden von Programmcode -----------------------------------------------
+\usepackage{listings}
+\usepackage{scrhack}
+\usepackage{xcolor} 
+\definecolor{hellgelb}{rgb}{1,1,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\lstset{
+    float=hbp,
+    basicstyle=\ttfamily\color{black}\small\smaller,
+    identifierstyle=\color{colIdentifier},
+    keywordstyle=\color{colKeys},
+    stringstyle=\color{colString},
+    commentstyle=\color{colComments},
+    columns=flexible,
+    tabsize=2,
+    frame=single,
+    extendedchars=true,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny,
+    breaklines=true,
+    backgroundcolor=\color{hellgelb},
+    breakautoindent=true
+}
+
+% URL verlinken, lange URLs umbrechen etc. -------------------------------------
+\usepackage{url}
+
+% wichtig für korrekte Zitierweise ---------------------------------------------
+\usepackage[square]{natbib}
+
+% PDF-Optionen -----------------------------------------------------------------
+\usepackage[
+    bookmarks,
+    bookmarksopen=true,
+    colorlinks=true,
+% diese Farbdefinitionen zeichnen Links im PDF farblich aus
+    linkcolor=red, % einfache interne Verknüpfungen
+    anchorcolor=black,% Ankertext
+    citecolor=blue, % Verweise auf Literaturverzeichniseinträge im Text
+    filecolor=magenta, % Verknüpfungen, die lokale Dateien öffnen
+    menucolor=red, % Acrobat-Menüpunkte
+    urlcolor=cyan, 
+% diese Farbdefinitionen sollten für den Druck verwendet werden (alles schwarz)
+    %linkcolor=black, % einfache interne Verknüpfungen
+    %anchorcolor=black, % Ankertext
+    %citecolor=black, % Verweise auf Literaturverzeichniseinträge im Text
+    %filecolor=black, % Verknüpfungen, die lokale Dateien öffnen
+    %menucolor=black, % Acrobat-Menüpunkte
+    %urlcolor=black, 
+    backref,
+    plainpages=false, % zur korrekten Erstellung der Bookmarks
+    pdfpagelabels, % zur korrekten Erstellung der Bookmarks
+    hypertexnames=false, % zur korrekten Erstellung der Bookmarks
+    linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
+]{hyperref}
+% Befehle, die Umlaute ausgeben, führen zu Fehlern, wenn sie hyperref als Optionen übergeben werden
+\hypersetup{
+    pdftitle={\titel \untertitel},
+    pdfauthor={\autor},
+    pdfcreator={\autor},
+    pdfsubject={\titel \untertitel},
+    pdfkeywords={\titel \untertitel},
+}
+
+% Grafiken ---------------------------------------------------------------------
+
+% for UML
+\usepackage{emp}
+% are we pdflatex?
+\ifx\pdftexversion\undefined
+% allow usage of jpeg, mps etc. in non pdf mode
+\usepackage[dvips,final]{graphicx}
+%enable landscape
+\usepackage{lscape}
+\else
+% allow usage of jpeg, mps etc. in pdf mode
+\usepackage[dvips,final,pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+%enable landscape
+\usepackage{pdflscape}
+\fi
+
+% hier liegen die Bilder des Dokuments
+\graphicspath{{images/}}
+
+
+% fortlaufendes Durchnummerieren der Fußnoten ----------------------------------
+\usepackage{chngcntr}
+
+% für lange Tabellen -----------------------------------------------------------
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{lscape}
+
+% Spaltendefinition rechtsbündig mit definierter Breite ------------------------
+\newcolumntype{w}[1]{>{\raggedleft\hspace{0pt}}p{#1}}
+
+% Formatierung von Listen ändern -----------------------------------------------
+\usepackage{paralist}
+
+% bei der Definition eigener Befehle benötigt
+\usepackage{ifthen}
+
+% definiert u.a. die Befehle \todo und \listoftodos
+\usepackage{todonotes}
+
+% sorgt dafür, dass Leerzeichen hinter parameterlosen Makros nicht als Makroendezeichen interpretiert werden
+\usepackage{xspace}
+
+% For floating of images within text
+\usepackage{wrapfig}
+
+% for underline via \uline, \uwave and \sout
+\usepackage[normalem]{ulem}

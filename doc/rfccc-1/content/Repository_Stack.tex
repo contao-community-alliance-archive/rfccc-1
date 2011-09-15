@@ -1,0 +1,73 @@
+\chapter{Repository Stack}
+
+In this chapter you find the whole extension repository stack defined.
+
+\begin{landscape}
+% I know, this is not really a state diagram but rather entities but hey.
+\begin{figure}
+\begin{emp}[Repository Stack](20, 20)
+
+StateInfo.iRepositoryDistributionNetwork;
+iRepositoryDistributionNetwork.foreColor := (.47, .94, .27);
+
+NoteInfo.iUMLNote;
+iUMLNote.foreColor := (0, .9, .9);
+
+
+State.Portal("Repository Portal")();
+ENote.NotePortal(iUMLNote)(
+	"Public browsing interface",
+	"- Public registration",
+	"- Public profile management",
+	"- Social networking");
+
+State.RepManager("Repository Manager")();
+ENote.NoteRepManager(iUMLNote)(
+	"Authorization required management interface",
+	"- User/Account management",
+	"- Package builder",
+	"- Package management",
+	"- Administration");
+
+State.RepMaster("Repository (Master)")();
+ENote.NoteRepMaster(iUMLNote)("Package distribution network");
+
+State.RepSlaveA("Repository (Slave1)")();
+State.RepSlaveB("Repository (Slave2)")();
+State.RepSlaveC("Repository (Slave3)")();
+
+% this is ugly as hell but I was unable to position the notes more properly using
+% same.left(NotePortal, NoteRepManager, NoteRepMaster);
+% it always threw an error, FIX this.
+leftToRight(95)(Portal, NotePortal);
+leftToRight(90)(RepManager, NoteRepManager);
+leftToRight(150)(RepMaster, NoteRepMaster);
+
+% combine distribution network
+leftToRight(20)(RepSlaveA, RepSlaveB);
+topToBottom(20)(RepMaster, RepSlaveA);
+EState.RepositoryDistributionNetwork(iRepositoryDistributionNetwork)("Package distribution network")(RepMaster, RepSlaveA, RepSlaveB);
+
+% positioning of globals
+topToBottom(20)(Portal, RepManager, RepositoryDistributionNetwork);
+
+State.RepositoryStack("Repository Stack")(Portal, RepManager, RepositoryDistributionNetwork);
+
+drawObjects(RepositoryStack, NotePortal, NoteRepManager, NoteRepMaster);
+
+clink(transition)(RepMaster, RepSlaveA);
+clink(transition)(RepMaster, RepSlaveB);
+
+clink(transition)(Portal, RepManager);
+clink(transition)(RepManager, RepMaster);
+
+
+clink(dashedLink)(Portal, NotePortal);
+clink(dashedLink)(RepManager, NoteRepManager);
+clink(dashedLink)(RepMaster, NoteRepMaster);
+
+\end{emp}
+\caption{Repository Stack}
+\end{figure}
+
+\end{landscape}

@@ -1,0 +1,80 @@
+% Eigene Befehle und typographische Auszeichnungen für diese
+
+% einfaches Wechseln der Schrift, z.B.: \changefont{cmss}{sbc}{n}
+\newcommand{\changefont}[3]{\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+% Abkürzungen mit korrektem Leerraum 
+\newcommand{\ua}{\mbox{u.\,a.\ }}
+\newcommand{\zB}{\mbox{z.\,B.\ }}
+\newcommand{\dahe}{\mbox{d.\,h.\ }}
+\newcommand{\Vgl}{Vgl.\ }
+\newcommand{\bzw}{bzw.\ }
+\newcommand{\evtl}{evtl.\ }
+\newcommand{\ie}{\mbox{i.\,e.\ }}
+
+\newcommand{\illustration}[1]{illustration~\ref{fig:#1}}
+
+\newcommand{\bs}{$\backslash$}
+
+\newcommand{\sectiontitle}{}
+\let\TeXsection\section
+\renewcommand{\section}[2][\empty]{\ifthenelse{\equal{#1}{\empty}}{\TeXsection{#2}\renewcommand{\sectiontitle}{#2}}{\TeXsection{#2}\label{#1}\renewcommand{\sectiontitle}{#1}}}
+
+\newcommand{\subsectiontitle}{}
+\let\TeXsubsection\subsection
+\renewcommand{\subsection}[2][\empty]{\ifthenelse{\equal{#1}{\empty}}{\TeXsubsection{#2}\renewcommand{\subsectiontitle}{#2}}{\TeXsubsection{#2}\label{#1}\renewcommand{\subsectiontitle}{#1}}}
+
+\let\TeXsubsubsection\subsubsection
+\renewcommand{\subsubsection}[2][\empty]{\ifthenelse{\equal{#1}{\empty}}{\TeXsubsubsection{#2}}{\TeXsubsubsection{#2}\label{#1}}}
+
+\newcommand{\supref}[1]{\textsuperscript{\ref{#1}}}
+
+% erzeugt ein Listenelement mit fetter Überschrift 
+\newcommand{\itemd}[2]{\item{\textbf{#1}}\\{#2}}
+
+% einige Befehle zum Zitieren --------------------------------------------------
+\newcommand{\Zitat}[2][\empty]{\ifthenelse{\equal{#1}{\empty}}{\citep{#2}}{\citep[#1]{#2}}}
+
+% zum Ausgeben von Autoren
+\newcommand{\AutorName}[1]{\textsc{#1}}
+\newcommand{\Autor}[1]{\AutorName{\citeauthor{#1}}}
+
+% verschiedene Befehle um Wörter semantisch auszuzeichnen ----------------------
+\newcommand{\newDef}[1]{\textbf{#1}}
+\newcommand{\techTerm}[1]{\textit{#1}}
+
+\newcommand{\DisplInput}[1]{\texttt{#1}}
+\newcommand{\DisplCode}[1]{\texttt{#1}}
+\newcommand{\DisplFile}[1]{\texttt{#1}}
+
+\newcommand{\Datentyp}[1]{\textsf{#1}}
+\newcommand{\XMLElement}[1]{\textsf{#1}}
+\newcommand{\Webservice}[1]{\textsf{#1}}
+
+% Deklaration von Hinweistexten
+\newcommand{\hint}[1]{
+\begin{tabular}{w{1.5cm}p{12cm}}\\
+\scalebox{0.125}{\includegraphics{images/base/Hint_Notification}} & #1
+\end{tabular}
+}
+
+% Deklaration von Warnungen
+\newcommand{\warning}[1]{
+\begin{tabular}{w{1.5cm}p{12cm}}\\
+\scalebox{0.125}{\includegraphics{images/base/Warning_Notification}} & #1
+\end{tabular}
+}
+
+% einbinden eines emp Bildes.
+\newcommand{\useempcenter}[2]{\begin{figure}[h!]\centering\scalebox{0.8}{\empuse{#1}}\caption{#2}\end{figure}}
+
+\newcommand{\useempfloat}[3]{\begin{wrapfigure}{#1}{0.4\textwidth}\begin{center}\empuse{#2}\end{center}\caption{#3}\end{wrapfigure}}
+
+\newcommand{\useemp}[3][\empty]{\ifthenelse{\equal{#1}{\empty}}{\useempcenter{#2}{#3}}{\useempfloat{#1}{#2}{#3}}}
+
+% Wrapper für useemp für uml Klassendiagramme
+\newcommand{\umlclass}[3][\empty]{\ifthenelse{\equal{#1}{\empty}}{\useemp{#2}{#3}}{\useemp[#1]{#2}{#3}}}
+
+% Wrapper um listings einzubinden
+\newcommand{\phplisting}[3]{\lstset{language=PHP, basicstyle=\footnotesize, showstringspaces=false, tabsize=2}\lstinputlisting[label=#1,caption=#2]{#3}}
+\newcommand{\xmllisting}[3]{\lstset{language=XML, basicstyle=\footnotesize, showstringspaces=false, tabsize=2}\lstinputlisting[label=#1,caption=#2]{#3}}

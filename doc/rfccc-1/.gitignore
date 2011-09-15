@@ -1,0 +1,12 @@
+*.aux
+*.dvi
+*.idx
+*.ist
+*.glo
+*.lo[fglt]
+*.mp
+*.nlo
+*.out
+*.pdf
+*.toc
+rfccc-1.[0-9]*

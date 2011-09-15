@@ -1,0 +1,67 @@
+\chapter{Repository}
+\todo{translation}
+
+Das Repository ist der Paketspeicher, bietet Zugriff auf die Paketinformationen und verteilt die Pakete. Für den Zugriff und die Verwaltung der Pakete im Repository steht eine REST Schnittstelle zur Verfügung. Das Repository verfügt demnach nicht über ein eigenes Web-Interface.
+Paketspeicher
+
+Im Paketspeicher werden die Pakete abgelegt. Der Paketspeicher ist strukturiert aufgebaut, daraus ergeben sich folgende Paketpfade:
+/<erster Buchstabe>/<name>/<name>-<version>.cext
+z.B.
+/a/Avisota/Avisota-1.5.1.cext
+Die Pfade werden direkt auf die Installationswurzel gemapt.
+REST Schnittstelle
+
+Die REST Schnittstelle dient zum Abrufen von Informationen (ohne Authentifizierung) und zum Verwalten des Repositories (mit Authentifizierung).
+Sie kann über dem Pfad /rest/ abgefragt werden.
+Als Suffix wird das Abfrageformat angehängt, z.B. /json
+Vor dem Abfrageformat werden die Parameter als Pfad-Komponente eingefügt, z.B. /rest/.../parameter/value/json
+Schnittstellen
+
+/rest/list/recent
+Auflisten der neuesten Pakete.
+Erlaubte Parameter: filter, offset, limit
+/rest/list/categories
+Auflisten der Kategorien in dem Repository.
+Erlaubte Parameter: offset, limit
+/rest/list/tags
+Auflisten der Tags in dem Repository.
+Erlaubte Parameter: offset, limit
+/rest/search/keywords
+Das Repository nach dem Schlüsselwörtern keywords durchsuchen.
+Erlaubte Parameter: filter, offset, limit
+/rest/put
+Ein Paket in das Repository laden. Das Paket wird als POST Daten übertragen.
+/rest/push
+Ein paket in das Repository laden. Im Gegensatz zur put Methode wird in den POST Daten eine URL übertragen, vor der aus das Repository das Paket beziehen kann.
+/rest/delete/name[/version]
+Ein Paket aus dem Repository löschen. Das Paket wird über den Paketnamen identifiziert. Wenn die version angegeben wird, dann wird nur die angegebene Version gelöscht, ansonsten werden alle Versionen gelöscht.
+/rest/settings/name/version
+Liefert die Einstellungen (Kategorie, Veröffentlichung, Zugriff) einer Erweiterung im Repository.
+/rest/configure/name/version
+Die Einstellungen einer Erweiterung neu setzen. Als PUSH Daten werden die neuen Einstellungen übergeben.
+Parameter
+
+filter
+
+Nach Kategorien filtern. Komma getrennte Liste.
+z.B. /rest/list/rectent/filter/plugin/json
+offset
+
+Die ersten Treffer der Ergebnisliste überspringen.
+z.B. /rest/list/recent/offset/10/json
+limit
+
+Das Ergebnis auf eine gewisse Anzahl Treffer begrenzen.
+z.B. /rest/list/recent/limit/10/json
+Ergebnisobjekt
+
+Authentifizierung
+
+Zum Zugriff auf die REST Schnittstelle gibt es 2 Authentifizierungsmethoden.
+Authentifizierung mit Benutzername+Passwort
+Authentifizierung mit AuthKey
+Alle Zugriffe lassen sich zusätzlich per IP Filtern.
+Setup Interface
+
+Das Setup Interface ist das einzige Web-Interface, es dient zur Installation, Aktualisierung, Wartung und Verwaltung der Zugriffsrechte.
+
