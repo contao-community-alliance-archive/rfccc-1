@@ -70,7 +70,7 @@ if [[ "$PREVIOUS" != "$CURRENT" ]]; then
 
 	# tweet
 	if [[ -n "$URL" ]]; then
-		twidge update "New nightly build of Contao ER3 documentation is available. $URL/$PDFFILENIGHTLY"
+		twidge update "New nightly build of #Contao #ER3 documentation is available! #ContaoER3 $URL/$PDFFILENIGHTLY"
 	fi
 
 	# save the current commit
