@@ -107,9 +107,9 @@ A given version A ist identical to version B if and only if:
 \item A.extensionA = B.extensionA \& A.extensionN = B.extensionN
 \end{itemize}
 
-Hereby one must pay attention to the fact that the alphabetical representation and the numeric representation has to be evaluated seperately.
+Hereby one must pay attention to the fact that the alphabetical representation and the numeric representation has to be evaluated separately.
 
-If the alphabethical representation (extensionA) is different for two versions, they have to be regarded as incompatible according to \ref{sec:versioncompatibility}. When no numeric representation (extensionN) is present for in a version with extension, the numeric part is implicit "1".
+If the alphabetical representation (extensionA) is different for two versions, they have to be regarded as incompatible according to \ref{sec:versioncompatibility}. When no numeric representation (extensionN) is present for in a version with extension, the numeric part is implicit "1".
 
 \small
 \begin{longtable}{|p{0.25\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|}
@@ -134,7 +134,7 @@ extensionN (numeric) & 3 & 4
 \normalsize
 
 \section[sec:packet structure]{Package structure}
-Extensions are shipped in a package file. Such a package contains meta information, optional package managemen routines for installation, uninstallation and handling upgrades in addition to the application data.
+Extensions are shipped in a package file. Such a package contains meta information, optional package management routines for installation, uninstallation and handling upgrades in addition to the application data.
 
 The package file is a zip file with a changed extension to mark it as a package file. This approach is already known \ie from java (jar files).
 
@@ -208,10 +208,10 @@ In general the extension component of a version is ignored as it makes common se
 
 \subsubsection[sec:special relationships]{Special relationships}
 
-Package relationships can not only refer other packages but some other namespaces as well.
+Package relationships can not only refer other packages but some other name-spaces as well.
 This is useful to restrict dependency on some php features, a certain database driver, some PEAR package or something else that has been defined in the specification.
 
-Currently the following namespaces exist.\\
+Currently the following name spaces exist.\\
 \begin{tabular}{ll}\\
 contao         & The contao core.\\
 php:[feature]  & Relates to a certain php feature. See php features in \ref{sec:package relationship namespaces php features}\\
@@ -243,7 +243,7 @@ This example describes, that it depends on the PHP SOAP extension but alternativ
 
 \subsubsection[sec:upgrade and downgrade compatibility]{Upgrade and downgrade compatibility}
 In many cases upgrades and downgrades may cause problems. This is even more the case, when the data schema is changing.
-That's the reason why the developer needs a way to define what potentional threat an upgrade or downgrade of a certain package implies.
+That's the reason why the developer needs a way to define what potential threat an upgrade or downgrade of a certain package implies.
 
 This potentional threat can be categorized in the following sections:
 
@@ -280,22 +280,26 @@ A corresponding upgrade/downgrade compatibility might look like the following:
 ...
 \end{lstlisting}
 
-\todo{translation}
+When defining such compatibilities, always the most recent version is defined for upgrading and the most oldest version for downgrading.
 
-Dabei beschreibt die Version immer die jüngste (Upgrade) oder älteste (Downgrade) Version, bis zu der diese Regel gilt. In dem Beispiel hat die Erweiterung die Version 1.2.3.
-Die Upgrade Fähigkeit besagt:
-Von allen Versionen 1.1 < 1.2.3 kann ohne Datenverlust aktualisiert werden.
-Von allen Versionen 1.0 < 1.1 kann mit Nutzdatenverlust aktualisiert werden.
-Die Downgrade Fähigkeit besagt:
-Zu allen Versionen 1.2 < 1.2.3 kann ohne Datenverlust aktualisiert werden.
-Zu allen Versionen 1.1 < 1.2 kann mit dem Verlust ungenutzer Daten aktualisiert werden.
-Zu allen Versionen 1.0 < 1.1 kann mit Nutzdatenverlust aktualisiert werden.
-Die Reihenfolge ist demnach egal, die Upgrade Definitionen werden zuerst nach Version absteigend sortiert und bilden dann immer zur nächsten Definition einen Versionsbereich, für den die Regel gilt.
+In above example we have the following definitions:
+\begin{tabular}{llp{0.55\textwidth}}\\
+\textbf{Rule} & \textbf{Version} & \textbf{Description}\\
+upgrade & 1.1 & All versions 1.1 <= X < 1.2.3 can be updated without data loss. \\
+upgrade & 1.0 & All versions 1.0 <= X < 1.1 can be updated with partial data loss. \\
+downgrade & 1.2 & To all versions 1.2 <= X < 1.2.3 can be downgraded without data loss. \\
+downgrade & 1.1 & To all versions 1.1 <= X < 1.2 can be downgraded and unused data will be removed. \\
+downgrade & 1.0 & To all versions 1.0 <= X < 1.1 can be downgraded with loss of user data. \\
+\end{tabular}
+The ordering of information in the xml tree is of no relevance as all items have to be sorted by the client application and sorted. Then the ranges will be defined and the proper information has to be retrieved.
 
 \subsection[sec:files information file]{FILES - package contents information file}
-\todo{translation}
-Die Paketinhaltsinformation beinhaltet eine Liste aller Paketdateien (mit Ausnahme der FILES Datei selbst) mit samt Prüfsumme. Die Datei dient der Validierung der Installation. Sie ist erforderlich, wenn ein signiertes Paket erzeugt wird, um mit dem Extension Manager eine zuverlässige Integritätsprüfung zu gewährleisten. Bei einem unsigniertem Paket kann die Datei mitgeliefert werden, ist aber nicht erforderlich. Wird ein unsigniertes Paket installiert, erstellt der Paket Manager die Datei bei der Installation.
-Beispieldatei
+The package contents information contains a list of all files contained within the package (except for the information file "FILES" itself).
+The file is used for validation of the installation and especially needed when creating a signed package file to validate the integrity of the installation.
+When creating an unsigned package, the file is not required and therefore may be omitted.
+
+The file syntax is simple.
+Every line is made up of a sha1 hash followed by a space character and the full file path specifying the destination.
 
 \lstset{language=XML} 
 \begin{lstlisting}[caption=FILES example: package contents information file]
@@ -308,10 +312,6 @@ b52f2d57d10c4f7ee67a7eb9615d5d24 LGPL
 2e7781b7b08ab489e08526f43adf5b0c PACKAGE
 ...
 \end{lstlisting}
-
-
-
-
 
 \section[sec:package relationship namespaces]{Package relationship namespaces}
 

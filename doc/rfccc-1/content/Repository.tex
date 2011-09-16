@@ -1,67 +1,173 @@
 \section[sec:repository]{Repository}
+The repository is a package storage system that serves package information and packages.
+To manage packages within the system, a REST API has been defined. Therefore the repository does not provide a frontend on it's own (aside from the setup interface).
+
+\subsection[sec:repository package storage system]{Package storage system layout}
+The package storage system contains all packages in a hierarchical directory tree.
+
+\dirtree{%
+.1 ROOT.
+.2 <firstchar>.
+.3 <extensionname>.
+.4 <extensionname>-<version>.<file-extension>.
+}
+Where the pathes are within the installation root.
+
+The result might be something like the following:
+\dirtree{%
+.1 ROOT.
+.2 a.
+.3 anextension.
+.4 anextension-1.0.0.cext.
+.2 m.
+.3 myextension.
+.4 myextension-0.1.0.cext.
+}
+
+\subsection[sec:repository setup interface]{Setup interface}
+
+The setup interface is the only web interface provided by the repository. It is used for installation, upgrading, maintenance and setup of access control.
+
+\subsection[sec:repository rest api]{REST API}
+
+\hint{please note that this section is currently in heavy development and that most details of the REST API have yet to be defined. We have not yet decided how the output data shall be structurized and even the result values of endpoints like push, put and delete are yet to be defined.}
+
+The REST API serves the purpose of information retrival (may be used without authentication) and to manage the repository (requires authentification).
+
+\subsubsection[sec:repository rest api url]{REST API URL}
+The REST API is implemented as HTTP service and can be reached via requests to the "\DisplFile{/rest}" URL of a webserver.
+
+A REST request is made up of the command, optionally followed by a variable amount of parameters. The final element is an optional switching of the output format.
+
+The general syntax of a REST request is made up as defined in the following listing.
+\begin{lstlisting}[caption=REST API URL in EBNF]
+SLASH          = <the dot ("/") character>
+UPALPHA        = <any US-ASCII uppercase letter "A".."Z">
+LOALPHA        = <any US-ASCII lowercase letter "a".."z">
+DIGIT          = <any US-ASCII digit "0".."9">
+ALPHA          = UPALPHA | LOALPHA
+ALNUM          = ALPHA | DIGIT
+FORMAT         = <"json"> | <"xml">
+ENDPOINT       = *ALNUM
+COMMAND        = *ALNUM
+PARAMNAME      = *ALNUM
+PARAMVALUE     = *ALNUM
+PARAMETER      = (PARAMNAME SLASH PARAMVALUE)
+PARAMETERS     = *(SLASH PARAMETER) | PARAMVALUE
+URL            = <"rest"> ENDPOINT SLASH COMMAND [PARAMETERS] [SLASH FORMAT]
+\end{lstlisting}
+
+Please pay attention to the fact, that parameters always make up a name-value pair, except for commands where only one parameter is allowed (\ie in the delete\supref{sec:repository rest api endpoint delete} endpoint). When this is the case, this very single parameter consists only of the parameter value and therefore is nameless.
+
+\subsubsection[sec:repository rest api output format]{requesting a custom output format}
+
+The requested output format may be specified by appending an suffix to the url.
+
+Currently supported output formats are \DisplCode{json} and \DisplCode{xml}. For details of the resulting output, please refer to the documentation in Section \todo{link to output format sections here.}.
+
+\subsubsection[sec:repository rest api endpoint list]{REST endpoint "list"}
+
+The list endpoints provides a way to request information of extensions from the repository.
+
+\paragraph{command "recent"}
+
+Via the \DisplCode{recent} command one can aquire a list of the packages that have been recently updated.
+
+Parameters:\\
+\begin{tabular}{lp{0.9\textwidth}}\\
+filter & Filtering of package names. If omitted, this parameter is implicitly empty and therefore no filtering is applied.\\ 
+offset & The offset for paginated output. If omitted this parameter is implicitly set to 0. \\ 
+limit & The amount of entries to be returned per page. If omitted, this parameter is implicitly set to 20. The maximum is 100 to ease server load.
+\end{tabular}
+
+\vspace{.5cm}
+\todo{find some better way to present examples}
+Example 1: list recent extensions and filter by category "plugin".\\
+\DisplCode{/rest/list/recent/filter/plugin}\vspace{.5cm}
+
+Example 2: list recent extensions and skip first 10 entries.\\
+\DisplCode{/rest/list/recent/offset/10}\vspace{.5cm}
+
+Example 3: list 10 most recent extensions.\\
+\DisplCode{/rest/list/recent/limit/10}\vspace{.5cm}
+
+\paragraph{command "categories"}
+
+Via the \DisplCode{categories} command one can aquire the list of the package categories that are contained in the repository.
+
+Parameters:\\
+\begin{tabular}{lp{0.9\textwidth}}\\
+offset & The offset for paginated output. If omitted this parameter is implicitly set to 0. \\ 
+limit & The amount of entries to be returned per page. If omitted, this parameter is implicitly set to 20. The maximum is 100 to ease server load.
+\end{tabular}
+
+\paragraph{command "tags"}
+
+Via the \DisplCode{tags} command one can aquire the list of all tags that are attached to packages in the repository.
+
+Parameters:\\
+\begin{tabular}{lp{0.9\textwidth}}\\
+offset & The offset for paginated output. If omitted this parameter is implicitly set to 0. \\ 
+limit & The amount of entries to be returned per page. If omitted, this parameter is implicitly set to 20. The maximum is 100 to ease server load.
+\end{tabular}
+
+\paragraph{command "search"}
+
+Via the \DisplCode{search} command one can acquire a list of packages that match the given search criteria.
+
+Parameters:\\
+\begin{tabular}{lp{0.9\textwidth}}\\
+keyword & Match a certain keyword. The keyword may be contained in the description or in some other text information anywhere in the extension.\\
+filter & Filtering of package names. If omitted, this parameter is implicitly empty and therefore no filtering is applied.\\ 
+offset & The offset for paginated output. If omitted this parameter is implicitly set to 0. \\ 
+limit & The amount of entries to be returned per page. If omitted, this parameter is implicitly set to 20. The maximum is 100 to ease server load.
+\end{tabular}
+
+\subsubsection[sec:repository rest api endpoint put]{REST endpoint "put"}
+
+Via the \DisplCode{put} endpoint, a package is uploaded into the repository. The package is transferred in the HTTP POST data.
+
+\subsubsection[sec:repository rest api endpoint push]{REST endpoint "push"}
+
+Via the \DisplCode{push} endpoint, a package is uploaded into the repository. In contrast to the \DisplCode{put}\supref{sec:repository rest api endpoint put} endpoint, only an url from where the package can be retrieved is transferred in the HTTP POST data. The repository will then fetch the package from that url.
+
+\subsubsection[sec:repository rest api endpoint delete]{REST endpoint "delete"}
+
+Using the delete endpoint, one can remove either one package or all packages of an extension from the archive.
+
+The availability of this endpoint will be most likely restricted on public repositories (like the one on contao.org) as the necessity to delete releases or even complete extensions should be very rare and therefore will be restricted to repository administrators to prevent abuse.
+
+\paragraph{command "release"}
+Remove a single release from the repository. This command only takes one parameter, specifying the exact release name in the form \DisplFile{<name>-<version>} (this is in fact the full package name without extension). The file will then be removed from the database.
+
+\warning{You should pay special attention that when removing a release from the repository this will not remove the version from Contao installations where it already has been installed and therefore might leave those installations in a state where the extension can not be properly upgraded or downgraded as the relevant information has been lost. In addition when removing a release from the repository, it may take some time until all slave servers catch up and are back in sync.}
+
+\paragraph{command "extension"}
+Remove an extension including all of it's releases from the repository. This command only takes one parameter, specifying the extension name in the form \DisplFile{<name>} (this is the name of a package file without version and extension). The extension will then be removed from the database along with all of it's releases.
+
+\warning{You should pay special attention that when removing an extension from the repository this will not remove the version from Contao installations where it already has been installed. In addition when removing an extension from the repository, it may take some time until all slave servers catch up and are back in sync.}
+
+\subsubsection[sec:repository rest api endpoint settings]{REST endpoint "settings"}
+
+\todo{the original information from the google doc is very vague, we mus elaborate this to some usable state.}
+/rest/settings/name/version
+
+returns the settings for an extension in the repository (category, published state, access restrictions)
+
+\subsubsection[sec:repository rest api endpoint configure]{REST endpoint "configure"}
+
+\todo{the original information from the google doc is very vague, we mus elaborate this to some usable state.}
+/rest/configure/name/version
+
+Update the settings of an extension. The new data will be provided via POST data.
+
+\subsubsection[sec:repository rest api authentication]{Authentication}
+
+To authenticate against the REST API, the user can choose between two methods.
+\begin{enumerate}
+\item authentication via username and password.
+\item authentication via OAuth and an auth key.
+\end{enumerate}
 \todo{translation}
 
-Das Repository ist der Paketspeicher, bietet Zugriff auf die Paketinformationen und verteilt die Pakete. Für den Zugriff und die Verwaltung der Pakete im Repository steht eine REST Schnittstelle zur Verfügung. Das Repository verfügt demnach nicht über ein eigenes Web-Interface.
-Paketspeicher
-
-Im Paketspeicher werden die Pakete abgelegt. Der Paketspeicher ist strukturiert aufgebaut, daraus ergeben sich folgende Paketpfade:
-/<erster Buchstabe>/<name>/<name>-<version>.cext
-z.B.
-/a/Avisota/Avisota-1.5.1.cext
-Die Pfade werden direkt auf die Installationswurzel gemapt.
-REST Schnittstelle
-
-Die REST Schnittstelle dient zum Abrufen von Informationen (ohne Authentifizierung) und zum Verwalten des Repositories (mit Authentifizierung).
-Sie kann über dem Pfad /rest/ abgefragt werden.
-Als Suffix wird das Abfrageformat angehängt, z.B. /json
-Vor dem Abfrageformat werden die Parameter als Pfad-Komponente eingefügt, z.B. /rest/.../parameter/value/json
-Schnittstellen
-
-/rest/list/recent
-Auflisten der neuesten Pakete.
-Erlaubte Parameter: filter, offset, limit
-/rest/list/categories
-Auflisten der Kategorien in dem Repository.
-Erlaubte Parameter: offset, limit
-/rest/list/tags
-Auflisten der Tags in dem Repository.
-Erlaubte Parameter: offset, limit
-/rest/search/keywords
-Das Repository nach dem Schlüsselwörtern keywords durchsuchen.
-Erlaubte Parameter: filter, offset, limit
-/rest/put
-Ein Paket in das Repository laden. Das Paket wird als POST Daten übertragen.
-/rest/push
-Ein paket in das Repository laden. Im Gegensatz zur put Methode wird in den POST Daten eine URL übertragen, vor der aus das Repository das Paket beziehen kann.
-/rest/delete/name[/version]
-Ein Paket aus dem Repository löschen. Das Paket wird über den Paketnamen identifiziert. Wenn die version angegeben wird, dann wird nur die angegebene Version gelöscht, ansonsten werden alle Versionen gelöscht.
-/rest/settings/name/version
-Liefert die Einstellungen (Kategorie, Veröffentlichung, Zugriff) einer Erweiterung im Repository.
-/rest/configure/name/version
-Die Einstellungen einer Erweiterung neu setzen. Als PUSH Daten werden die neuen Einstellungen übergeben.
-Parameter
-
-filter
-
-Nach Kategorien filtern. Komma getrennte Liste.
-z.B. /rest/list/rectent/filter/plugin/json
-offset
-
-Die ersten Treffer der Ergebnisliste überspringen.
-z.B. /rest/list/recent/offset/10/json
-limit
-
-Das Ergebnis auf eine gewisse Anzahl Treffer begrenzen.
-z.B. /rest/list/recent/limit/10/json
-Ergebnisobjekt
-
-Authentifizierung
-
-Zum Zugriff auf die REST Schnittstelle gibt es 2 Authentifizierungsmethoden.
-Authentifizierung mit Benutzername+Passwort
-Authentifizierung mit AuthKey
-Alle Zugriffe lassen sich zusätzlich per IP Filtern.
-Setup Interface
-
-Das Setup Interface ist das einzige Web-Interface, es dient zur Installation, Aktualisierung, Wartung und Verwaltung der Zugriffsrechte.
-
+All requests can also be restricted to certain IPs via server configuration. Refer to the server configuration manual.\todo{this manual of course still has to be written. :)}

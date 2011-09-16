@@ -1,6 +1,7 @@
 \section[sec:repository manager]{Repository Manager}
-\todo{translation}
-Der Repository Manager ist ein Web-Interface und die einfachste Form, ein Repository zu verwalten. Es bietet alle Basisfunktionen für das Repository. Es ist Teil des Portals, kann aber auch unabhängig davon genutzt werden.
-Aus der Verbindung von Repository und Repository Manager lässt sich ein einfaches, leicht zu verwaltendes Repository aufbauen, das nur über die JSON Schnittstelle von außen durchsuchbar ist.
-Diese Installation ist vor allem für Agenturen und private Repositories gedacht, die kein öffentliches Portal benötigen.
 
+The repository manager is a web interface and the most intuitive form of managing a repository. The manager provides all basic functions of an repository and is part of the Portal\supref{sec:repository portal} but can also be used separately.
+
+By combining the repository\supref{sec:repository package storage system} with the repository manager, one can build a simple to manage repository system. In fact this combination is in essence like the repository in version 2 on contao.org (but will supersede it in features and usability) from developer point of view. Extension packages will get built within the manager and published onto the repository via the REST API.
+
+An installation that consists of this minimal installation is mainly of interest for agencies that want to run a private repository and do not intend to provide a public portal.

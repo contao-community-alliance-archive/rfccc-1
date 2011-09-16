@@ -18,16 +18,16 @@ if [[ ! -d "$CACHE" ]]; then
 
 	# clone the project
 	git clone https://github.com/Discordier/Contao-ER3.git "$CACHE/git"
-	
+
 	# enter repository
 	cd "$CACHE/git"
-	
+
 	# set upstream (this enables pull support)
 	git branch --set-upstream master origin/master
 else
 	# enter repository
 	cd "$CACHE/git"
-	
+
 	# update the project
 	git pull -q --rebase -f
 fi
@@ -47,11 +47,10 @@ CURRENT=$(git log -1 | head -1)
 
 # generate nightly build if there is a new commit
 if [[ "$PREVIOUS" != "$CURRENT" ]]; then
-	TEXFILE="rfccc-1.tex"
 	PDFFILE="`basename $TEXFILE .tex`.pdf"
 	PDFFILENIGHTLY="`basename $TEXFILE .tex`-nightly.pdf"
 	MPOSTFILE="`basename $TEXFILE .tex`.mp"
-	
+
 	if [[ ! -w "$TARGET_DIR/$PDFFILENIGHTLY" ]]; then
 		echo "I need to have write permissions on \"$TARGET_DIR/$PDFFILENIGHTLY\"!"
 		exit 1
