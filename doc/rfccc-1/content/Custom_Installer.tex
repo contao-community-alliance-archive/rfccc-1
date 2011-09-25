@@ -1,0 +1,19 @@
+\section[sec:custom installer code]{Custom Installer}
+
+If a developer want's to add custom code, he can make a subclass of the BasicInstaller.
+
+\begin{lstlisting}[caption=Custom Installer Code Example]
+class CustomInstaller extends BasicInstaller
+{
+	public function upgrade(InstallationInformation $objInfo, Version $objToVersion)
+	{
+		// add custom pre-upgrade code here
+		
+		parent::upgrade($objInfo, $objToVersion);
+		
+		// add custom post-upgrade code here
+	}	
+}
+\end{lstlisting}
+
+Or the developer write his complete own installer. In this case the developer have to implement the Installer interface.

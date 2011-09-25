@@ -1,0 +1,14 @@
+\subsection[sec:installerinformation]{InstallationInformation}
+
+The InstallationInformation object, contains all informations about an installation.
+
+\begin{itemize}
+\item Installed Version
+\item Installed Files
+\item Corresponding Schemas
+\item The installed package file (if available)
+\item The target installation package file (if a new version should be installed or up-/downgraded)
+\end{itemize}
+
+The InstallationInformation object is modified from the Installer.
+The Installer register all it changes of the extension to the InstallationInformation object, including version changes, file list changes and schema changes.

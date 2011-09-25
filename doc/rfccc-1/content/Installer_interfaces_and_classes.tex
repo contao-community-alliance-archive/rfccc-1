@@ -1,0 +1,42 @@
+\section[sec:installer interfaces and classes]{Installer interfaces and classes}
+
+\begin{figure}[h]
+\begin{emp}[Installer interfaces and classes](20, 20)
+Class.information("InstallationInformation")()(
+	"+getVersion() : Version",
+	"+getFiles() : array",
+	"+getInstalledPackage() : Package",
+	"+getTargetPackage() : Package");
+
+Class.installer("Installer")()(
+	"+install($objInfo : InstallationInformation, $objVersion : Version) throws InstallerException : void",
+	"+upgrade($objInfo : InstallationInformation, $objTargetVersion : Version) throws InstallerException : void",
+	"+downgrade($objInfo : InstallationInformation, $objTargetVersion : Version) throws InstallerException : void",
+	"+reinstall($objInfo : InstallationInformation) throws InstallerException : void",
+	"+uninstall($objInfo : InstallationInformation) throws InstallerException : void",	
+	"+clean($objInfo : InstallationInformation) throws InstallerException : void");
+
+Class.basicInstaller("BasicInstaller")()(
+	"+removeFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+removeContaoFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+removeDataFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+removeUnusedFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+removeUnusedContaoFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+removeUnusedDataFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+copyFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+copyContaoFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+copyUserFiles($objInfo : InstallationInformation) throws InstallerException : void",
+	"+removeSchema($objInfo : InstallationInformation) throws InstallerException : void",
+	"+safePatchSchema($objInfo : InstallationInformation) throws InstallerException : void",
+	"+fullPatchSchema($objInfo : InstallationInformation) throws InstallerException : void");
+
+topToBottom(20)(installer, basicInstaller);
+topToBottom(20)(information, installer);
+
+drawObjects(information, installer, basicInstaller);
+
+clink(dashedLink)(information, installer);
+clink(transition)(basicInstaller, installer);
+\end{emp}
+\caption{Installer interfaces and classes}
+\end{figure}

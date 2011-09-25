@@ -1,1 +1,45 @@
-\chapter[sec:installation]{Installation}
+\chapter{Installation}
+
+This chapter describe how the Installation goes on and what programming basics are required.
+
+\section[sec:er3 manager]{ER3 Manager}
+
+The ER3 Manager (fka ER Client) is designed for Contao 2. It's a full replacement for the ER2 Client, that is currently in use.
+It's a combined manager, that use extensions from the ER2 and the ER3. The ER3 Manager - or Extension Manager - have to manage all installed extension in an existing Contao 2 installation.
+
+\section[sec:conatao installation manager]{Contao Installation Manager}
+
+The Contao Installation Manager (short CIM), is an Contao independend tool. It's designed for Contao 3 and should manage a complete Contao installation, including the installed Contao core and the installed extensions.
+Summarized it's a combination of the current existing Install Tool and the ER3 Manager.
+
+\paragraph{}
+CIM should replace the Contao distribution package.
+The idea behind CIM is, that a user only have to load a single PHP file, the CIM Installer.
+The CIM Installer load all required CIM files.
+Then the CIM provide a wizard to install a complete Contao.
+Maybe with a basic template and basic extensions.
+
+\paragraph{}
+To make this possible, contao have to managed as a repository package itself.
+This means, the CIM can manage the Contao core like any other extension.
+In this case, there are no need for special behaviours to manage dependencies to the Contao Core.
+
+\paragraph{}
+But CIM is more than an installation tool.
+CIM check the environment, if its compatible with Contao and provide solutions to make it compatible
+For example activate the FTP file acces (fka SafeModeHack).
+CIM manage the Contao system settings.
+For example the database connection.
+CIM simplified the installation process by automating the installation process.
+
+\paragraph{}
+For users, CIM is an absolute simplification of the installation process.
+First download the CIM Installer (a small PHP file) and upload to the webspace.
+Second call the CIM Installer, the CIM Installer download all required CIM files.
+Third make shure, the environment is ready to install.
+Fourth load a basic installation (Music Academy).
+After CIM finish it work, the installation is ready to use.
+
+\paragraph{}
+For web workers/agencies additionaly it automating the installation process.
+The automating process can be customized, to mind the custom preferences.

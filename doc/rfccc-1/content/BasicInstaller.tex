@@ -1,0 +1,171 @@
+\subsection[sec:basic installer]{Basic Installer}
+
+The Basic Installer is the default implementation of the installer interface.
+If the developer does not define an installer for the extension, this installer is used.
+In most cases, if the developer needs to add custom install, upgrade, downgrade or uninstall code, the developer create a supimplementation of this class.
+
+\begin{figure}[h]
+\begin{emp}[Basic Installer](20, 20)
+\end{emp}
+\caption{Basic Installer Implementation}
+\end{figure}
+
+% remove methods
+\vspace{.5cm}
+\DisplCode{removeFiles(\$objInfo)} Removes all CONTAO and DATA files from the installation.
+
+\vspace{.5cm}
+\DisplCode{removeContaoFiles(\$objInfo)} Removes all CONTAO files from the installation.
+
+\vspace{.5cm}
+\DisplCode{removeDataFiles(\$objInfo)} Removes all DATA files from the installation.
+
+\vspace{.5cm}
+\DisplCode{removeUnusedFiles(\$objInfo)} Removes unused CONTAO and DATA files from the installation.
+
+\vspace{.5cm}
+\DisplCode{removeUnusedContaoFiles(\$objInfo)} Removes unused CONTAO files from the installation.
+
+\vspace{.5cm}
+\DisplCode{removeUnusedDataFiles(\$objInfo)} Removes unused DATA files from the installation.
+
+% copy files methods
+\vspace{.5cm}
+\DisplCode{copyContaoFiles(\$objInfo)} Copy the files from CONTAO package directory into the installation.
+
+\vspace{.5cm}
+\DisplCode{copyDataFiles(\$objInfo)} Copy the files from DATA package directory into the installation.
+
+% schema methods
+\vspace{.5cm}
+\DisplCode{removeSchema(\$objInfo)} Remove the complete schema and all containing data from the database.
+
+\vspace{.5cm}
+\DisplCode{safePatchSchema(\$objInfo)} Add missing or modify existing schema, but does not delete any existing schema information and data.
+
+\vspace{.5cm}
+\DisplCode{fullPatchSchema(\$objInfo)} Add missing or modify existing schema, and delete no more existing schema information and data.
+
+\vspace{.5cm}
+The basic implementation may look like this. Please note, this is an incomplete, pseudo implementation!
+
+\begin{lstlisting}[caption=Basic Installer Implementation Code]
+class BasicInstaller implements Installer
+{
+	public function install(InstallationInformation \$objInfo, Version \$objVersion)
+	{
+		$this->copyContaoFiles($objInfo);
+		$this->copyDataFiles($objInfo);
+		$this->safePatchSchema($objInfo);
+	}
+	
+	public function upgrade(InstallationInformation $objInfo, Version $objToVersion)
+	{
+		$this->removeUnusedFiles($objInfo);
+		$this->safePatchSchema($objInfo);
+		$this->copyFiles($objInfo);
+	}
+	
+	public function downgrade(InstallationInformation $objInfo, Version $objToVersion)
+	{
+		$objVersionCompare = $objInfo->getVersion()->compare($objToVersion);
+		
+		// check if the versions differ in more than the build number
+		if (!$objVersionCompare->isAnotherBuild())
+		{
+			throw new DowngradeException("Downgrade to another major, minor or revision is not supported.");
+		}
+		
+		$this->removeUnusedFiles($objInfo);
+		$this->safePatchSchema($objInfo);
+		$this->copyFiles($objInfo);
+	}
+	
+	public function reinstall(InstallationInformation $objInfo, Version $objTargetVersion)
+	{
+		$this->removeContaoFiles($objInfo);
+		$this->safePatchSchema($objInfo);
+		$this->copyFiles($objInfo);
+	}
+	
+	public function uninstall(InstallationInformation $objInfo)
+	{
+		$this->removeContaoFiles($objInfo);
+	}
+	
+	public function clean(InstallationInformation $objInfo)
+	{
+		$this->removeFiles($objInfo);
+		$this->removeSchema($objInfo);
+	}
+	
+	public function removeFiles(InstallationInformation $objInfo)
+	{
+		$this->removeContaoFiles($objInfo);
+		$this->removeDataFiles($objInfo);
+	}
+	
+	public function removeContaoFiles(InstallationInformation $objInfo)
+	{
+		// remove files from the CONTAO package directory.
+		// unregister removed files from $objInfo
+	}
+	
+	public function removeDataFiles(InstallationInformation $objInfo)
+	{
+		// remove files from the DATA package directory.
+		// unregister removed files from $objInfo
+	}
+	
+	public function removeUnusedFiles(InstallationInformation $objInfo)
+	{
+		$this->removeUnusedContaoFiles($objInfo);
+		$this->removeUnusedDataFiles($objInfo);
+	}
+	
+	public function removeUnusedContaoFiles(InstallationInformation $objInfo)
+	{
+		// remove files from the CONTAO package directory that are unused.
+		// unregister removed files from $objInfo
+	}
+	
+	public function removeUnusedDataFiles(InstallationInformation $objInfo)
+	{
+		// remove files from the DATA package directory that are unused.
+		// unregister removed files from $objInfo
+	}
+	
+	public function copyFiles(InstallationInformation $objInfo)
+	{
+		$this->copyContaoFiles($objInfo);
+		$this->copyUserFiles($objInfo);
+	}
+	
+	public function copyContaoFiles(InstallationInformation $objInfo)
+	{
+		// copy files from the CONTAO package into the installation.
+		// register installed files into $objInfo
+	}
+	
+	public function copyUserFiles(InstallationInformation $objInfo)
+	{
+		// copy files from the DATA package into the installation.
+		// register installed files into $objInfo
+	}
+	
+	public function removeSchema(InstallationInformation $objInfo)
+	{
+		// remove the complete schema
+	}
+	
+	public function safePatchSchema(InstallationInformation $objInfo)
+	{
+		// add missing schema information and update existing
+	}
+	
+	public function fullPatchSchema(InstallationInformation $objInfo)
+	{
+		// add missing schema information, update existing and remove no more existing informations.
+	}
+}
+\end{lstlisting}

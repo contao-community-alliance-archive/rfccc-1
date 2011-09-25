@@ -1,9 +1,117 @@
 \section[sec:installation process]{Installation Process}
 
-The Extension Manager (fka ER Client) use an installer class to install, upgrade, downgrade and uninstall extensions.
-Every extension can use the basic installer, a modification of the basic installer or a complete own implementation.
+This section describe the flow of the installation process.
 
-An own implementation of the installer can be used to create individual installers.
-For example the installer can fetch the extension files in the installation process.
+\todo{Make some charts to visualize the processes}
 
-TODO Problems with online-installation installer and signatures?!
+\subsection[sec:install process]{Install Process}
+
+\begin{enumerate}
+\item Download the package into local package archive
+\item Read the installer class from package meta
+\item Instanciate the installer
+\item Create new installer information object
+\item Call the installers \DisplFile{install(..)} method
+\item Store the installer information object
+\end{enumerate}
+
+\subsection[sec:upgrade process]{Upgrade Process}
+
+\begin{enumerate}
+\item Download the new version package into local package archive
+\item Read the installer class from package meta
+\item Instanciate the installer
+\item Load installer information object
+\item Call the installers \DisplFile{upgrade(..)} method
+\item Store the installer information object
+\end{enumerate}
+
+\subsection[sec:downgrade process]{Downgrade Process}
+
+\paragraph{Method 1: Upgrade is possible}
+
+\begin{enumerate}
+\item Download the old version package into local package archive
+\item Read the installer class from current installed package meta
+\item Instanciate the installer of the current installed version
+\item Load installer information object
+\item Call the installers \DisplFile{downgrade(..)} method
+\item Read the installer class from old version package meta
+\item Instanciate the installer of the old version
+\item Call the installers \DisplFile{upgrade(..)} method
+\item Store the installer information object
+\end{enumerate}
+
+\paragraph{Method 2: Upgrade not possible - safe method}
+
+\begin{enumerate}
+\item Download the old version package into local package archive
+\item Read the installer class from current installed package meta
+\item Instanciate the installer of the current installed version
+\item Load installer information object
+\item Call the installers \DisplFile{uninstall(..)} method
+\item Read the installer class from old version package meta
+\item Instanciate the installer of the old version
+\item Call the installers \DisplFile{install(..)} method
+\item Store the installer information object
+\end{enumerate}
+
+\paragraph{Method 3: Upgrade not possible - hard method}
+
+\begin{enumerate}
+\item Download the old version package into local package archive
+\item Read the installer class from current installed package meta
+\item Instanciate the installer of the current installed version
+\item Load installer information object
+\item Call the installers \DisplFile{uninstall(..)} method
+\item Call the installers \DisplFile{clean(..)} method
+\item Read the installer class from old version package meta
+\item Instanciate the installer of the old version
+\item Call the installers \DisplFile{install(..)} method
+\item Store the installer information object
+\end{enumerate}
+
+\subsection[sec:reinstall process]{Reinstall Process}
+
+\begin{enumerate}
+\item Download the package into local package archive
+\item Read the installer class from package meta
+\item Instanciate the installer
+\item Load installer information object
+\item Call the installers \DisplFile{reinstall(..)} method
+\item Store the installer information object
+\end{enumerate}
+
+\subsection[sec:uninstall process]{Uninstall Process}
+
+\begin{enumerate}
+\item Download the package into local package archive
+\item Read the installer class from package meta
+\item Instanciate the installer
+\item Load installer information object
+\item Call the installers \DisplFile{uninstall(..)} method
+\item Store the installer information object (maybe some DATA files and schema is just remeaning in the system)
+\end{enumerate}
+
+\subsection[sec:clean uninstall process]{Clean Uninstall Process}
+
+Same as clean process.
+
+\subsection[sec:clean process]{Clean Process}
+
+\begin{enumerate}
+\item Download the package into local package archive
+\item Read the installer class from package meta
+\item Instanciate the installer
+\item Load installer information object
+\item If still installed, call the installers \DisplFile{uninstall(..)} method
+\item Call the installers \DisplFile{clean(..)} method
+\item Remove stored installer information object
+\end{enumerate}
+
+\subsection[sec:installation process fallback]{Fallback if package is not available}
+
+This fallback works only for uninstall\supref{sec:uninstall process} process!
+
+If the package is not available, this means the installer can not read wich installer class should be used.
+It asked the user to use the basic operation, in this case, the BasicInstaller is used as installer to make the operations.
