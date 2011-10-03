@@ -1,0 +1,14 @@
+\section[sec:namespaces]{Namespaces}
+
+Contao 3 extensions should use the PHP 5.3 namespace feature. Contao 2 supports PHP prior 5.3 so this section only affects Contao 3 extensions.
+
+\subsection[sec:namespace lock]{Namespace Lock}
+
+Extensions can define a namespace lock, that means a namespace, that is "soft" locked for this extension.
+This is a build in feature of the Extension Creator\supref{sec:extension builder} and should prevent multiple use of the same namespace.
+Soft lock means, that it is not possible to exclusive lock a complete namespace, it is only possible to lock one namespace level.
+For example if a developer lock the namespace \DisplFile{myextension\textbackslash} the namespace \DisplFile{myextension\textbackslash subnamespace\textbackslash} is not locked.
+The developer have to lock every namespace he wants to use.
+
+A developer who try to use a locked namespace get a warning that its locked from another extension.
+Because this only affects the Extension Builder\supref{sec:extension builder}, it is not possible to absolutely prevent multiple use of the same namespace.
