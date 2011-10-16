@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ctx:extension name="hello_world" version="1.0.0"
+	xmlns:ctx="http://www.contao.org/extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.contao.org/extension ../doc/extension.xsd ">
+	<ctx:title language="en">Hello World! for Contao 2</ctx:title>
+	<ctx:subtitle language="en">Say hello world! example extension.</ctx:subtitle>
+	<ctx:description language="en">This is just an extension example for the rfccc-1.</ctx:description>
+	<ctx:licence name="Creative Commons Attribution-ShareAlike 3.0 Unported License" />
+	<ctx:author name="Tristan Lins" email="info@infinitysoft.de" />
+</ctx:extension>

@@ -120,6 +120,11 @@
 					<documentation>version of the extension.</documentation>
 				</annotation>
 			</attribute>
+			<attribute name="encrypted" type="boolean" use="optional" default="false">
+				<annotation>
+					<documentation>define if files in CONTAO and DATA are encrypted. See chapter "Licensing" from the rfccc-1 for more details!</documentation>
+				</annotation>
+			</attribute>
 		</complexType>
 	</element>
 

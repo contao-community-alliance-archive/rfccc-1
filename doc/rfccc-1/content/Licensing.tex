@@ -1,0 +1,121 @@
+\label{sec:licensing} 
+\chapter{Licensing}
+
+There are two types of licenses, the multi license and the single license.
+The multi license allow multiple installation of the extension.
+The single license allow a single installation of the extension.
+
+A license can be acquired through the "Repository Portal"\supref{sec:repository portal} or from the developer itself.
+The "ER3 Manager"\supref{sec:er3 manager} allow to aquire a license directry through the "Repository Portal"\supref{sec:repository portal}.
+To use licenses, the "ER3 Manager"\supref{sec:er3 manager} have to be authenticated against the "Repository Portal"\supref{sec:repository portal}.
+
+The license is split into two parts, the license key and the license file.
+The license key is a short unique identifier for the license file.
+The license key have to be validated against the Repository (not Portal)
+
+\section[sec:license key]{License key}
+
+The license key is a sha256 hash, split into 8 parts with a length of 8 characters, concatenated with a minus character (-).
+
+A license key may look like: \\
+\texttt{e3b0c442-98fc1c14-9afbf4c8-996fb924-27ae41e4-649b934c-a495991b-7852b855}
+
+\section[sec:license file]{License file}
+
+The license file contains a lot of informations about the license, stored in INI format:
+\begin{itemize}
+\item Name of the extension [extension]
+\item Lowest extension version [lowest version]
+\item Highest extension version [highest version]
+\item Name and email of license holder [license holder]
+\item Name and email of licensor [licensor]
+\item Unencrypted package checksum [checksum]
+\item Type of license (single or multi, optional, default is multi) [type]
+\end{itemize}
+The names in the brackets [ ] are the ini fields.
+The fields lowest version and highest version can be combined to a single field version.
+This can be an absolut single version or a major or minor version.
+
+\begin{lstlisting}[caption=License file]
+[license]
+extension=MyContaoExtension
+lowest version=1.1
+highest version=1
+license holder=Tristan Lins <info@infinitysoft.de>
+licensor=Christian Schiffler <info@cyberspectrum.de>
+checksum=2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
+\end{lstlisting}
+
+The license file is never stored in the contao extension. The license file can be optained from the "Repository"\supref{sec:repository} automaticaly by the "ER3 Manager"\supref{sec:er3 manager}. Alternatively the user can download the license file and use it every time, he want to install it (see Standalone license\supref{sec:standalone license}).
+
+\section[sec:unencrypted package checksum]{Unencrypted package checksum}
+
+The unencrypted package checksum (UPC) fulfilled two functions.
+The first is to have an unique field in the license file, that cannot be recreated from a user.
+The second is to validate the package integrity after decryption.
+
+To calculate the UPC, the folowing steps are required.
+
+Step 1: build a natural ordered list of all files, including the meta files of the package.
+
+Step 2: build a sha256 hash about all concatenaded files, in the order of the list from step 1.
+
+A sample implementation serves upc.php\supref{sec:unencrypted package checksum calculation}.
+
+\section[sec:standalone license]{Standalone license}
+
+A standalone license is used if the "ER3 Manager"\supref{sec:er3 manager} is unable to connect the repository or the repository does not contains the license. There is no different to a normal license, expecting that the license file is not obtained from the "Repository"\supref{sec:repository}. The user have to upload the license file from his computer every time, he want to install or update the extension. This user interaction is necessary because the license file cannot be stored in the contao installation to protect the package from steeling.
+
+For this license usage the "License ipgrade"\supref{sec:license upgrade} is impossible.
+
+\section[sec:encrypted packages]{Encrypted packages}
+
+A licensed package get encrypted to prevent package stealing.
+As encryption algorithm the advanced encryption standard (AES) is used.
+If a package is encrypted, the \textbf{encrypted} flag have to be set to \textbf{true} and all encrypted files get the extension ".aes".
+The encryption only affects files from the "CONTAO" and "DATA" directory.
+All meta informations are stored unencrypted.
+Encrypted packages requires signing of the packages.
+The encryption key can be calculated from the license key and package checksum.
+The license checksum (license key without minus) and package checksum are recalculated to bytestreams and then the bytestreams are XOR with each other. The result is the encryption key.
+See upc.php\supref{sec:unencrypted package checksum calculation} for implementation example.
+
+The usage of the licence checksum and package checksum as part of the encryption key forces every licensed package to be unique!
+
+A sample implementation serves encrypt.php\supref{sec:package encryption implementation}.
+
+\section[sec:single license]{Single license}
+
+For a single installation there is used a third id to protect the package, the "installation id"\supref{sec:installation id}. For a single license the encryption key is calculated by XOR license checksum, package checksum and installation id. In the license file the "type" field have to set to "single". There are no other changes to the license, only the package use another key for encryption.
+
+\subsection[sec:installation id]{Installation ID}
+
+The installation id is unique for every installation. It is calculated from these factors:
+\begin{itemize}
+\item Contao Version \todo{Maybe its not the best idea to use Contao Version in the installation id?!}
+\item Contao installation path (working directory)
+\item Running domain
+\end{itemize}
+
+The installation id is a sha256 checksum over the three newline-concatenated values.
+
+A sample implementation serves installationid.php\supref{sec:installation id calculation}.
+
+\section[sec:license upgrade]{Licence upgrade}
+
+As you read the sections above, there is a big problem with these licensing and encryption mechanism.
+A license key can only be valid for a single package version.
+This is because it is just a hash about the license file and the license file have to contain the checksum of the package.
+As a result the "Repository Portal"\supref{sec:repository portal} have to store the information for which version the license is generated.
+This is the basic for the license upgrade.
+
+The licensed (encrypted) packages are automatic generated through the "Extension Builder"\supref{sec:extension builder}.
+Because this, its possible to automatic generate a new license and package.
+If a user try to update a licensed extension and does not own a license for the current version, but for a prior version.
+Then the "Repository Portal"\supref{sec:repository portal} automaticale upgrade the license.
+In the license file contains all necessary informations for this.
+If an upgrade is possible, this means the license includes the current version, a new license file and license key is generated.
+The license key is pushed to and stored in the contao installation.
+After that, the "ER3 Manager"\supref{sec:er3 manager} can download and upgrade to the new package version.
+
+If the "Extension Builder"\supref{sec:extension builder} is not used by the developer, the developer have to upload an unencrypted package into the repository. The unencrypted package will never be published, but its used to generate the licensed package for every license holder.
