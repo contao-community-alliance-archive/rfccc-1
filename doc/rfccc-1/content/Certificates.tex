@@ -1,0 +1,45 @@
+\label{sec:certificates} 
+\chapter{Certificates}
+
+The ER3 uses \href{http://en.wikipedia.org/wiki/X.509}{X.509 certificates}.
+There are two types of certificates, the developer certificate\supref{sec:developer certificate} for signing packages\supref{sec:signed packages} and the installation certificate\supref{sec:installation certificate} for licensing\supref{sec:licensing}.
+
+\section[sec:developer certificate]{Developer certificate}
+
+Every registered person or company can only have one developer certificate.
+The developer certificate is used to sign packages\supref{sec:signed packages}.
+The ER3 Manager\supref{sec:er3 manager} can use the signature to validate the integrity and origin.
+
+\section[sec:installation certificate]{Installation certificate}
+
+An installation certificate is only required to use the extension store\supref{sec:extension store}.
+It is generated through the ER3 Manager\supref{sec:er3 manager}.
+The public key is stored in the Repository Portal\supref{sec:repository portal}, associated to a registered person or company and the installation domain (just for human identification).
+A single person or company can register multiple installation certificates.
+
+\paragraph{}
+An installation certificate should be unique, this means every installation get its own certificate.
+While generating a new installation certificate the ER3 Manager\supref{sec:er3 manager} stored some unique informations with the certificate, the installation domain and the installation path.
+If these informations change, the ER3 Manager\supref{sec:er3 manager} ask the user, if a new certificate should be generated.
+Normally the answer is no, because in most cases these informations change while put an installation from development to productive, change the provider or something similar.
+But if an installation is duplicated to create a new website, for example by using a copy master. This question can prevent installation certificate duplication.
+In most cases, this should not be necessary, because an installation certificate is first generated if it is needed. Or in other words, the first time the extension store\supref{sec:extension store} is opened from the ER3 Manager\supref{sec:er3 manager}.
+
+\section[sec:key exchange]{Key exchange}
+
+The public keys are stored in the Repository Portal\supref{sec:repository portal}.
+A public key can only be stored by registered persons and companies, this means it is not an open public key storage.
+The portal also provide a \href{http://en.wikipedia.org/wiki/Revocation_list}{certification revocation list} for deleted keys.
+A key get invalid if the owning person or company account is deleted.
+
+\section[sec:certificate dependencies]{Dependencies}
+
+The php openssl module is required for this functionality.
+This module should be available since php 4.
+
+\section[sec:signed packages]{Signed packages}
+
+A developer can sign his packages.
+Signed packages provide more security because the user can validate the origin of the package.
+All developers should sign there packages, the extension builder\supref{sec:extension builder} normally do this for the developer.
+If the ER3 Manager\supref{sec:er3 manager} try to install an unsigned packages it gives a security warning to the user.
