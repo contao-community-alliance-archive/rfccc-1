@@ -1,4 +1,5 @@
 .project
 .buildpath
 .settings
+.idea
 example/hello_world_encrypt
