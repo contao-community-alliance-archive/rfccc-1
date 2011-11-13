@@ -115,6 +115,16 @@
 					<documentation>uniqe name of the extension.</documentation>
 				</annotation>
 			</attribute>
+			<attribute name="fork-of" type="token" use="optional">
+				<annotation>
+					<documentation>this is a fork off the named extension</documentation>
+				</annotation>
+			</attribute>
+			<attribute name="successor-of" type="token" use="optional">
+				<annotation>
+					<documentation>this is the successor off the named extension</documentation>
+				</annotation>
+			</attribute>
 			<attribute name="version" type="ctx:version" use="required">
 				<annotation>
 					<documentation>version of the extension.</documentation>
