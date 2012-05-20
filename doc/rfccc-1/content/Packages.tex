@@ -7,8 +7,8 @@ A version number is combined like the following.
 
 \begin{lstlisting}[caption=Version number in EBNF]
 DOT            = <the dot (".") character>
-UPALPHA        = <any US-ASCII uppercase letter "A".."Z">
-LOALPHA        = <any US-ASCII lowercase letter "a".."z">
+UPALPHA        = <any US-ASCII upper case letter "A".."Z">
+LOALPHA        = <any US-ASCII lower case letter "a".."z">
 DIGIT          = <any US-ASCII digit "0".."9">
 ALPHA          = UPALPHA | LOALPHA
 ALNUM          = ALPHA | DIGIT
@@ -26,11 +26,11 @@ VERSION = MAJOR DOT MINOR [DOT REVISION] [EXTENSION] DOT RELEASE
 
 The only mandatory fields in the version are major, minor and the release. 
 The release number is combined of either the word "head" in conjunction with an alpha numeric revision suffix which refers to unstable releases or one of the words "alpha", "beta", "rc" or "stable" suffixed with one digit. The latter one can also be accompanied with a build number.
-The revision number (also known as "maintenance" or "patchlevel") is entirely optional, as it is not used in most cases.
+The revision number (also known as "maintenance" or "patch level") is entirely optional, as it is not used in most cases.
 
-The optional extension component ist mostly useful for personal repositories, which serve altered versions of certain extensions. This is known from derivated works like Ubunutu is releasing altered debian packages with a suffix "ubuntu1" or similar.
+The optional extension component is mostly useful for personal repositories, which serve altered versions of certain extensions. This is known from derivative works like the Ubuntu project, which is releasing altered debian packages with a suffix "ubuntu1" or similar.
 
-Developers are encouraged to provides adjustments to upstream maintainers in favor of providing own versions of packages though.
+Please note that developers are encouraged to provide adjustments to upstream maintainers in favor of providing own versions of packages though to keep the forking of extensions to a minimum.
 
 \subsection[sec:versioning real word examples]{A real world versioning example}
 
@@ -38,14 +38,18 @@ Let's imagine an agency has altered an extension for ACME Inc. and is providing 
 To eliminate problems with the vanilla extension in the main repository, the agency appends the extension "acme" to the version and results in the version
 \DisplFile{1.2.3-acme1}.
 
-Using this scheme one can prevent unwanted upgrading (see \ref{sec:versioncompatibility}). In contrast to the other components of the version, the build number is the only one that can not be influenced by the developer. The build number is incremented by one for every package being uploaded into the repository but not when the description or the properties are changing. This is in contrast to the old ER, which incremented the build number upon every change to the extension.
+Using this scheme one can prevent unwanted upgrading (see \ref{sec:versioncompatibility}).
+
+In contrast to the other components of the version, the build number is the only one that can not be influenced by the developer. The build number is incremented by one for every package being uploaded into the repository but not when the description or the properties are changing. This is in contrast to the old ER, which incremented the build number upon every change to the extension.
+\todo{How shall this work? version bumping can only be done upon "building" of a package but the upload is much later in the work flow.}
+
 
 \section[sec:versioncompatibility]{Version compatibility}
 Thanks to the \techTerm{extension} component of the version, it is possible to tag modified variants of an extension. These variants are in most cases incompatible to newer (vanilla) releases of the same extension.
 
 To address these potentional problems, the following version compatibility rules are in place.
 
-Versions are compatible if, and only if the following conditions are met:
+Versions are compatible if, and only if, any of the following conditions is met:
 \begin{itemize}
   \item ...the alphabetic representation of the \techTerm{extension} component is identical.
   \item ...the extension component is omitted on both versions.
@@ -53,7 +57,7 @@ Versions are compatible if, and only if the following conditions are met:
 
 \small
 \begin{longtable}{|p{0.25\textwidth}|p{0.05\textwidth}|p{0.25\textwidth}|}
-\caption{Version compatibility examples (compatible: "="; incompatible: !)} \\
+\caption{Version compatibility examples (compatible: "="; incompatible: "!")} \\
 \hline
 \label{tab:versioncompatexamples}
 \textbf{Version 1} & \textbf{=/!} & \textbf{Version 2} \\
@@ -73,14 +77,14 @@ Versions are compatible if, and only if the following conditions are met:
 
 Please note that this only refers to the compatibility in respect to the version and that the compatibility can be further restricted by the extension meta file as described in \ref{sec:package information file}.
 
-\section[sec:version comparision]{Version comparision}
+\section[sec:version comparison]{Version comparison}
 
 When comparing compatible versions (according to the rules defined in \ref{sec:versioncompatibility}), one has to compare versions with extension component with a different approach than those without extension component.
 
-\subsection[sec:version comparision without extension]{Version comparision without extension component}
+\subsection[sec:version comparison without extension]{Version comparison without extension component}
 A version without extension component will be matched according to the usual mechanism.
 
-A given version A is bigger (aka. newer) than version B if, and only if:
+A given version A is bigger (aka. newer) than version B if, and only if, one of the following conditions is true:
 \begin{itemize}
 \item A.major>B.major
 \item A.major=B.major \& A.minor>B.minor
@@ -88,32 +92,32 @@ A given version A is bigger (aka. newer) than version B if, and only if:
 \item A.major=B.major \& A.minor=B.minor \& A.revision=B.revision \& A.build>B.build
 \end{itemize}
 
-A given version A ist identical to version B if and only if:
+A given version A ist identical to version B if, and only if:
 \begin{itemize}
 \item A.major=B.major \& A.minor=B.minor \& A.revision=B.revision \& A.build=B.build
 \end{itemize}
 
-\subsection[sec:version comparision with extension]{Version comparision with extension component}
+\subsection[sec:version comparison with extension]{Version comparison with extension component}
 
-If an \techTerm{extension} component is present, the following additional rules are to be applied in addition to the rules mentioned in \ref{sec:version comparision without extension}.
+If an \techTerm{extension} component is present, the following additional rules are to be applied in addition to the rules mentioned in \ref{sec:version comparison without extension}.
 
 A given version A is bigger (aka. newer) than version B if, and only if:
 \begin{itemize}
 \item A.extensionA = B.extensionA \& A.extensionN > B.extensionN
 \end{itemize}
 
-A given version A ist identical to version B if and only if:
+A given version A ist identical to version B if, and only if:
 \begin{itemize}
 \item A.extensionA = B.extensionA \& A.extensionN = B.extensionN
 \end{itemize}
 
-Hereby one must pay attention to the fact that the alphabetical representation and the numeric representation has to be evaluated separately.
+At this, one must pay attention to the fact that the alphabetical representation and the numeric representation has to be evaluated separately.
 
-If the alphabetical representation (extensionA) is different for two versions, they have to be regarded as incompatible according to \ref{sec:versioncompatibility}. When no numeric representation (extensionN) is present for in a version with extension, the numeric part is implicit "1".
+If the alphabetical representation (extensionA) is different for two versions, they have to be regarded as incompatible according to \ref{sec:versioncompatibility}. When no numeric representation (extensionN) is present in a version with extension, the version has to be evaluated as if a numeric part has been set with the value of "1".
 
 \small
 \begin{longtable}{|p{0.25\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|}
-\caption{Version comparision example} \\
+\caption{Version comparison example} \\
 \hline
 \label{tab:versioncompareexamples}
 \textbf{field} & \textbf{Version 1} & \textbf{Version 2} \\
@@ -134,7 +138,7 @@ extensionN (numeric) & 3 & 4
 \normalsize
 
 \section[sec:packet structure]{Package structure}
-Extensions are shipped in a package file. Such a package contains meta information, optional package management routines for installation, uninstallation and handling upgrades in addition to the application data.
+Extensions are shipped in a package file. Such a package contains meta information, optional package management routines for installation, un-installation and handling upgrades in addition to the application data.
 
 The package file is a zip file with a changed extension to mark it as a package file. This approach is already known \ie from java (jar files).
 
@@ -204,7 +208,7 @@ With above condition we define a conflict for all versions of MySQL except for v
 
 \subsubsection[sec:handling of versions with extension component]{Handling of versions with extension component}
 
-In general the extension component of a version is ignored as it makes common sense that an altered version of an extension is compatible to it's unaltered counterpart from an external point of view. This behaviour can be altered by defining the extension version in the relationship explicitely. If specified, the match for the version must be performed including the extension part.
+In general the extension component of a version is ignored as it makes common sense that an altered version of an extension is compatible to it's unaltered counterpart from an external point of view. This behaviour can be altered by defining the extension version in the relationship explicitly. If specified, the match for the version must be performed including the extension part.
 
 \subsubsection[sec:special relationships]{Special relationships}
 
@@ -213,16 +217,16 @@ This is useful to restrict dependency on some php features, a certain database d
 
 Currently the following name spaces exist.\\
 \begin{tabular}{ll}\\
-contao         & The contao core.\\
-php:[feature]  & Relates to a certain php feature. See php features in \ref{sec:package relationship namespaces php features}\\
-pear:[package] & Relates to a certain pear package. See pear packages in \ref{sec:package relationship namespaces pear packages}.\\
-db:[type]      & Relates to a certain database, \ie db:mysql. See database drivers in \ref{sec:package relationship namespaces database drivers}.\\
+contao         & The Contao core.\\
+php:[feature]  & Relates to a certain php feature. See php features in \ref{sec:package relationship name spaces php features}\\
+pear:[package] & Relates to a certain pear package. See pear packages in \ref{sec:package relationship name spaces pear packages}.\\
+db:[type]      & Relates to a certain database, \ie db:mysql. See database drivers in \ref{sec:package relationship name spaces database drivers}.\\
 \end{tabular}
 
 \subsubsection[sec:alternative dependencies]{Alternative dependencies}
 Often it is required to have a certain feature available but multiple ways exist to get this feature available when depending on some PHP feature but to also provide a wrapper class as workaround if it is not available.
 
-Instead of defining features within the repository client and therefore having to update the client all the time when a new feature has been defined, we provide the developer with the possibility to define alternative pathes by specifying groups of dependencies.
+Instead of defining features within the repository client and therefore having to update the client all the time when a new feature has been defined, we provide the developer with the possibility to define alternative paths by specifying groups of dependencies.
 
 When defining groups of dependencies, the first positive match found is accepted and the group evaluation will be stopped. Note that the order in the XML has no meaning and therefore the attribute \techTerm{preferation} must be used to define which dependency is the most preferable.
 
@@ -250,7 +254,7 @@ This potentional threat can be categorized in the following sections:
 \begin{tabular}{llp{0.55\textwidth}}\\
 \textbf{Category} & \textbf{threat factor} & \textbf{Description}\\
 lossless  & none & Up- and downgrade can be performed without data loss.\\
-dropUnused  & almost none & Up- and downgrade will remove data that will not be in use anymore.\\
+dropUnused  & almost none & Up- and downgrade will remove data that will not be in use any more.\\
 partial  & might be dangerous & Up- and downgrade might remove user data. Therefore manual intervention is suggested.\\
 undefined & dragons live here! &This setting is implicit defined when the developer has not defined a setting at all. The result might be user data loss, in worst case scenario resulting in total data loss.\\
 \end{tabular}
@@ -313,16 +317,16 @@ b52f2d57d10c4f7ee67a7eb9615d5d24 LGPL
 ...
 \end{lstlisting}
 
-\section[sec:package relationship namespaces]{Package relationship namespaces}
+\section[sec:package relationship name spaces]{Package relationship name spaces}
 
-\subsection[sec:package relationship namespaces php features]{PHP features}
-
-\todo{this section is currently undocumented}
-
-\subsection[sec:package relationship namespaces pear packages]{PEAR features}
+\subsection[sec:package relationship name spaces php features]{PHP features}
 
 \todo{this section is currently undocumented}
 
-\subsection[sec:package relationship namespaces database drivers]{Database driver}
+\subsection[sec:package relationship name spaces pear packages]{PEAR features}
+
+\todo{this section is currently undocumented}
+
+\subsection[sec:package relationship name spaces database drivers]{Database driver}
 
 \todo{this section is currently undocumented}

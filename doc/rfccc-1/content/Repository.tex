@@ -1,6 +1,10 @@
 \section[sec:repository]{Repository}
+Definition:
 The repository is a package storage system that serves package information and packages.
 To manage packages within the system, a REST API has been defined. Therefore the repository does not provide a frontend on it's own (aside from the setup interface).
+
+The repository can therefore be compared to a web server providing editing possibilities in addition to information retrival.
+For the sake of simplicity, it is not basing upon oversized solutions like WebDAV.
 
 \subsection[sec:repository package storage system]{Package storage system layout}
 The package storage system contains all packages in a hierarchical directory tree.
@@ -24,20 +28,25 @@ The result might be something like the following:
 .4 myextension-0.1.0.cext.
 }
 
+\hint{The nature of this directory tree is only of interest to the implementor of a repository server, as the client will never have to know about this layout, as when downloading a package, the url will be retrieved via the REST API and not calculated on client side.}
+
 \subsection[sec:repository setup interface]{Setup interface}
 
 The setup interface is the only web interface provided by the repository. It is used for installation, upgrading, maintenance and setup of access control.
 
 \subsection[sec:repository rest api]{REST API}
 
-\hint{please note that this section is currently in heavy development and that most details of the REST API have yet to be defined. We have not yet decided how the output data shall be structurized and even the result values of endpoints like push, put and delete are yet to be defined.}
+\hint{please note that this section is currently in heavy development and that most details of the REST API have yet to be defined. We have not yet decided how the output data shall be structured and even the result values of endpoints like push, put and delete are yet to be defined.}
 
-The REST API serves the purpose of information retrival (may be used without authentication) and to manage the repository (requires authentification).
+The REST API serves the purpose of information retrieval (may be used without authentication) and to manage the repository (requires authentification).
+
+The REST API is implemented as HTTP service and can be reached via requests to the "\DisplFile{/rest}" URL of a web server.
+
+Calls to the API must be either GET or POST requests. For details which method has to be used, please examine the documentation of the commands.
 
 \subsubsection[sec:repository rest api url]{REST API URL}
-The REST API is implemented as HTTP service and can be reached via requests to the "\DisplFile{/rest}" URL of a webserver.
 
-A REST request is made up of the command, optionally followed by a variable amount of parameters. The final element is an optional switching of the output format.
+A REST request URL is made up of the command, optionally followed by a variable amount of parameters. The final element is an optional switching of the output format.
 
 The general syntax of a REST request is made up as defined in the following listing.
 \begin{lstlisting}[caption=REST API URL in EBNF]
@@ -71,7 +80,7 @@ The list endpoints provides a way to request information of extensions from the 
 
 \paragraph{command "recent"}
 
-Via the \DisplCode{recent} command one can aquire a list of the packages that have been recently updated.
+Via the \DisplCode{recent} command one can acquire a list of the packages that have been recently updated.
 
 Parameters:\\
 \begin{tabular}{lp{0.9\textwidth}}\\
@@ -93,7 +102,7 @@ Example 3: list 10 most recent extensions.\\
 
 \paragraph{command "categories"}
 
-Via the \DisplCode{categories} command one can aquire the list of the package categories that are contained in the repository.
+Via the \DisplCode{categories} command one can acquire the list of the package categories that are contained in the repository.
 
 Parameters:\\
 \begin{tabular}{lp{0.9\textwidth}}\\
@@ -103,7 +112,7 @@ limit & The amount of entries to be returned per page. If omitted, this paramete
 
 \paragraph{command "tags"}
 
-Via the \DisplCode{tags} command one can aquire the list of all tags that are attached to packages in the repository.
+Via the \DisplCode{tags} command one can acquire the list of all tags that are attached to packages in the repository.
 
 Parameters:\\
 \begin{tabular}{lp{0.9\textwidth}}\\
