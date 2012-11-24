@@ -60,24 +60,29 @@ Versions are compatible if, and only if, any of the following conditions is met:
 * ...the extension component is omitted on both versions.
 
 <table>
-<tr>
-<td>**Version 1**</td>  <td>**=/!**</td>  <td>**Version 2**</td>
-</tr>
-<tr>
-<td>1.2.3</td>        <td>=</td>      <td>4.5.6</td>
-</tr>
-<tr>
-<td>1.2-extA.3</td>   <td>=</td>      <td>4.5-extA.6</td>
-</tr>
-<tr>
-<td>1.2-extB.3</td>   <td>!</td>      <td>4.5-extC.6</td>
-</tr>
-<tr>
-<td>1.2-extD3.4</td>  <td>=</td>      <td>5.6-extD7.8</td>
-</tr>
-<tr>
-<td>1.2-extE3.4</td>  <td>!</td>      <td>5.6-extF7.8</td>
-</tr>
+  <tbody>
+    <tr>
+      <td>Version 1</td>  <td>=/!</td>  <td>Version 2</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.2.3</td>        <td>=</td>      <td>4.5.6</td>
+    </tr>
+    <tr>
+      <td>1.2-extA.3</td>   <td>=</td>      <td>4.5-extA.6</td>
+    </tr>
+    <tr>
+      <td>1.2-extB.3</td>   <td>!</td>      <td>4.5-extC.6</td>
+    </tr>
+    <tr>
+      <td>1.2-extD3.4</td>  <td>=</td>      <td>5.6-extD7.8</td>
+    </tr>
+    <tr>
+      <td>1.2-extE3.4</td>  <td>!</td>      <td>5.6-extF7.8</td>
+    </tr>
+  </tbody>
+</table>
 
 Please note that this only refers to the compatibility in respect to the version and that the compatibility can be further restricted by the extension meta file as described in \ref{sec:package information file}.
 
@@ -115,13 +120,31 @@ If the alphabetical representation (extensionA) is different for two versions, t
 
 **Version comparison example**
 <table>
-<td>**field**</td><td>**Version 1**</td><td>**Version 2**</td>
-<td>full version</td><td>1.2-acme3.4</td><td>1.2-acme4.1</td>
-<td>major</td><td>1</td><td>1</td>
-<td>minor</td><td>2</td><td>2</td>
-<td>extension</td><td>acme3</td><td>acme4</td>
-<td>extensionA (alpha)</td><td>acme</td><td>acme</td>
-<td>extensionN (numeric)</td><td>3</td><td>4</td>
+  <thead>
+    <tr>
+      <td>field</td><td>Version 1</td><td>Version 2</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>full version</td><td>1.2-acme3.4</td><td>1.2-acme4.1</td>
+    </tr>
+    <tr>
+      <td>major</td><td>1</td><td>1</td>
+    </tr>
+    <tr>
+      <td>minor</td><td>2</td><td>2</td>
+    </tr>
+    <tr>
+      <td>extension</td><td>acme3</td><td>acme4</td>
+    </tr>
+    <tr>
+      <td>extensionA (alpha)</td><td>acme</td><td>acme</td>
+    </tr>
+    <tr>
+      <td>extensionN (numeric)</td><td>3</td><td>4</td>
+    </tr>
+  </tbody>
 </table>
 
 Package structure
@@ -134,10 +157,20 @@ The package file is a zip file with a changed extension to mark it as a package 
 For the file extension currently the following are considered (on the right hand are the file formats listed that are known to use this file extension):
 
 <table>
-<td>.cext</td><td>none known so far</td>
-<td>.cex</td><td>INMOS Transputer Development System Occam User Program, ThumbsPlus File, The Currency Exchanger Rate File, CLAN Output File (Child Language Data Exchange System)</td>
-<td>.ctp</td><td>American Greetings CreataCard (Broderbund), BestAddress HTML Editor Combined Template File (Multimedia Australia Pty. Ltd.)</td>
-<td>.ctx</td><td>CTX Chemical File (Gasteiger Group), Chinese Character Input File, Compressed Text, GE Industrial Systems CIMPLICITY Text Version HMI Screen, Alphacam Compiled Text (Planit), Online Course Text (Microsoft Corporation), Pretty Good Privacy (PGP) Ciphertext File (PGP Corporation), Windows Terminal Server INI Backup File (Microsoft Corporation), Visual Basic User Control Binary File, CTRAN/W DEFINE Compressed Data File (Geo-Slope International), Nokia PC Suite Backup Contact File (Nokia)</td>
+  <tbody>
+    <tr>
+      <td>.cext</td><td>none known so far</td>
+    </tr>
+    <tr>
+      <td>.cex</td><td>INMOS Transputer Development System Occam User Program, ThumbsPlus File, The Currency Exchanger Rate File, CLAN Output File (Child Language Data Exchange System)</td>
+    </tr>
+    <tr>
+      <td>.ctp</td><td>American Greetings CreataCard (Broderbund), BestAddress HTML Editor Combined Template File (Multimedia Australia Pty. Ltd.)</td>
+    </tr>
+    <tr>
+      <td>.ctx</td><td>CTX Chemical File (Gasteiger Group), Chinese Character Input File, Compressed Text, GE Industrial Systems CIMPLICITY Text Version HMI Screen, Alphacam Compiled Text (Planit), Online Course Text (Microsoft Corporation), Pretty Good Privacy (PGP) Ciphertext File (PGP Corporation), Windows Terminal Server INI Backup File (Microsoft Corporation), Visual Basic User Control Binary File, CTRAN/W DEFINE Compressed Data File (Geo-Slope International), Nokia PC Suite Backup Contact File (Nokia)</td>
+    </tr>
+  </tbody>
 </table>
 
 A package contains the following files:
@@ -203,10 +236,20 @@ This is useful to restrict dependency on some php features, a certain database d
 
 Currently the following name spaces exist.
 <table>
-<td>contao</td><td>The Contao core.</td>
-<td>php:[feature]</td><td>Relates to a certain php feature. See php features in</td>\ref{sec:package relationship name spaces php features}
-<td>pear:[package]</td><td>Relates to a certain pear package. See pear packages in</td>\ref{sec:package relationship name spaces pear packages}.
-<td>db:[type]</td><td>Relates to a certain database,</td>\ie db:mysql. See database drivers in \ref{sec:package relationship name spaces database drivers}.
+  <tbody>
+    <tr>
+      <td>contao</td><td>The Contao core.</td>
+    </tr>
+    <tr>
+      <td>php:[feature]</td><td>Relates to a certain php feature. See php features in</td>\ref{sec:package relationship name spaces php features}
+    </tr>
+    <tr>
+      <td>pear:[package]</td><td>Relates to a certain pear package. See pear packages in</td>\ref{sec:package relationship name spaces pear packages}.
+    </tr>
+    <tr>
+      <td>db:[type]</td><td>Relates to a certain database,</td>\ie db:mysql. See database drivers in \ref{sec:package relationship name spaces database drivers}.
+    </tr>
+  </tbody>
 </table>
 
 Alternative dependencies
@@ -230,7 +273,7 @@ When defining groups of dependencies, the first positive match found is accepted
 </ctx:dependency>
 </ctx:group>
 ...
-<table>
+```
 
 This example describes, that it depends on the PHP SOAP extension but alternatively can also use the extension "nusoap" if the first is not available.
 
@@ -243,11 +286,25 @@ That's the reason why the developer needs a way to define what potential threat 
 This potentional threat can be categorized in the following sections:
 
 <table>
-<td>**Category**</td><td>**threat factor**</td><td>**Description**</td>
-<td>lossless</td><td>none</td><td>Up- and downgrade can be performed without data loss.</td>
-<td>dropUnused</td><td>almost none</td><td>Up- and downgrade will remove data that will not be in use any more.</td>
-<td>partial</td><td>might be dangerous</td><td>Up- and downgrade might remove user data. Therefore manual intervention is suggested.</td>
-<td>undefined</td><td>dragons live here!</td>&This setting is implicit defined when the developer has not defined a setting at all. The result might be user data loss, in worst case scenario resulting in total data loss.
+  <thead>
+    <tr>
+      <td>Category</td><td>threat factor</td><td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>lossless</td><td>none</td><td>Up- and downgrade can be performed without data loss.</td>
+    </tr>
+    <tr>
+      <td>dropUnused</td><td>almost none</td><td>Up- and downgrade will remove data that will not be in use any more.</td>
+    </tr>
+    <tr>
+      <td>partial</td><td>might be dangerous</td><td>Up- and downgrade might remove user data. Therefore manual intervention is suggested.</td>
+    </tr>
+    <tr>
+      <td>undefined</td><td>dragons live here!</td>&This setting is implicit defined when the developer has not defined a setting at all. The result might be user data loss, in worst case scenario resulting in total data loss.
+    </tr>
+  </tbody>
 </table>
 
 Whenever a developer has not defined a compatibility, the following automatic assumptions are made:
@@ -278,12 +335,40 @@ When defining such compatibilities, always the most recent version is defined fo
 
 In above example we have the following definitions:
 <table>
-<td>**Rule**</td><td>**Version**</td><td>**Description**</td>
-<td>upgrade</td><td>1.1</td><td>All versions 1.1 <= X < 1.2.3 can be updated without data loss.</td>
-<td>upgrade</td><td>1.0</td><td>All versions 1.0 <= X < 1.1 can be updated with partial data loss.</td>
-<td>downgrade</td><td>1.2</td><td>To all versions 1.2 <= X < 1.2.3 can be downgraded without data loss.</td>
-<td>downgrade</td><td>1.1</td><td>To all versions 1.1 <= X < 1.2 can be downgraded and unused data will be removed.</td>
-<td>downgrade</td><td>1.0</td><td>To all versions 1.0 <= X < 1.1 can be downgraded with loss of user data.</td>
+  <thead>
+    <tr>
+      <td>Rule</td>
+      <td>Version</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>upgrade</td>
+      <td>1.1</td>
+      <td>All versions 1.1 <= X < 1.2.3 can be updated without data loss.</td>
+    </tr>
+    <tr>
+      <td>upgrade</td>
+      <td>1.0</td>
+      <td>All versions 1.0 <= X < 1.1 can be updated with partial data loss.</td>
+    </tr>
+    <tr>
+      <td>downgrade</td>
+      <td>1.2</td>
+      <td>To all versions 1.2 <= X < 1.2.3 can be downgraded without data loss.</td>
+    </tr>
+    <tr>
+      <td>downgrade</td>
+      <td>1.1</td>
+      <td>To all versions 1.1 <= X < 1.2 can be downgraded and unused data will be removed.</td>
+    </tr>
+    <tr>
+      <td>downgrade</td>
+      <td>1.0</td>
+      <td>To all versions 1.0 <= X < 1.1 can be downgraded with loss of user data.</td>
+    </tr>
+  </tbody>
 </table>
 
 The ordering of information in the xml tree is of no relevance as all items have to be sorted by the client application and sorted. Then the ranges will be defined and the proper information has to be retrieved.
