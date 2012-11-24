@@ -62,24 +62,34 @@ Versions are compatible if, and only if, any of the following conditions is met:
 <table>
   <tbody>
     <tr>
-      <td>Version 1</td>  <td>=/!</td>  <td>Version 2</td>
+      <td><strong>Version 1</strong></td>  <td><strong>=/!</strong></td>  <td><strong>Version 2</strong></td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>1.2.3</td>        <td>=</td>      <td>4.5.6</td>
+      <td>1.2.3</td>
+      <td>=</td>
+      <td>4.5.6</td>
     </tr>
     <tr>
-      <td>1.2-extA.3</td>   <td>=</td>      <td>4.5-extA.6</td>
+      <td>1.2-extA.3</td>
+      <td>=</td>
+      <td>4.5-extA.6</td>
     </tr>
     <tr>
-      <td>1.2-extB.3</td>   <td>!</td>      <td>4.5-extC.6</td>
+      <td>1.2-extB.3</td>
+      <td>!</td>
+      <td>4.5-extC.6</td>
     </tr>
     <tr>
-      <td>1.2-extD3.4</td>  <td>=</td>      <td>5.6-extD7.8</td>
+      <td>1.2-extD3.4</td>
+      <td>=</td>
+      <td>5.6-extD7.8</td>
     </tr>
     <tr>
-      <td>1.2-extE3.4</td>  <td>!</td>      <td>5.6-extF7.8</td>
+      <td>1.2-extE3.4</td>
+      <td>!</td>
+      <td>5.6-extF7.8</td>
     </tr>
   </tbody>
 </table>
@@ -122,27 +132,41 @@ If the alphabetical representation (extensionA) is different for two versions, t
 <table>
   <thead>
     <tr>
-      <td>field</td><td>Version 1</td><td>Version 2</td>
+      <td><strong>field</strong></td>
+      <td><strong>Version 1</strong></td>
+      <td><strong>Version 2</strong></td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>full version</td><td>1.2-acme3.4</td><td>1.2-acme4.1</td>
+      <td>full version</td>
+      <td>1.2-acme3.4</td>
+      <td>1.2-acme4.1</td>
     </tr>
     <tr>
-      <td>major</td><td>1</td><td>1</td>
+      <td>major</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
-      <td>minor</td><td>2</td><td>2</td>
+      <td>minor</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
     <tr>
-      <td>extension</td><td>acme3</td><td>acme4</td>
+      <td>extension</td>
+      <td>acme3</td>
+      <td>acme4</td>
     </tr>
     <tr>
-      <td>extensionA (alpha)</td><td>acme</td><td>acme</td>
+      <td>extensionA (alpha)</td>
+      <td>acme</td>
+      <td>acme</td>
     </tr>
     <tr>
-      <td>extensionN (numeric)</td><td>3</td><td>4</td>
+      <td>extensionN (numeric)</td>
+      <td>3</td>
+      <td>4</td>
     </tr>
   </tbody>
 </table>
@@ -159,16 +183,20 @@ For the file extension currently the following are considered (on the right hand
 <table>
   <tbody>
     <tr>
-      <td>.cext</td><td>none known so far</td>
+      <td>.cext</td>
+      <td>none known so far</td>
     </tr>
     <tr>
-      <td>.cex</td><td>INMOS Transputer Development System Occam User Program, ThumbsPlus File, The Currency Exchanger Rate File, CLAN Output File (Child Language Data Exchange System)</td>
+      <td>.cex</td>
+      <td>INMOS Transputer Development System Occam User Program, ThumbsPlus File, The Currency Exchanger Rate File, CLAN Output File (Child Language Data Exchange System)</td>
     </tr>
     <tr>
-      <td>.ctp</td><td>American Greetings CreataCard (Broderbund), BestAddress HTML Editor Combined Template File (Multimedia Australia Pty. Ltd.)</td>
+      <td>.ctp</td>
+      <td>American Greetings CreataCard (Broderbund), BestAddress HTML Editor Combined Template File (Multimedia Australia Pty. Ltd.)</td>
     </tr>
     <tr>
-      <td>.ctx</td><td>CTX Chemical File (Gasteiger Group), Chinese Character Input File, Compressed Text, GE Industrial Systems CIMPLICITY Text Version HMI Screen, Alphacam Compiled Text (Planit), Online Course Text (Microsoft Corporation), Pretty Good Privacy (PGP) Ciphertext File (PGP Corporation), Windows Terminal Server INI Backup File (Microsoft Corporation), Visual Basic User Control Binary File, CTRAN/W DEFINE Compressed Data File (Geo-Slope International), Nokia PC Suite Backup Contact File (Nokia)</td>
+      <td>.ctx</td>
+      <td>CTX Chemical File (Gasteiger Group), Chinese Character Input File, Compressed Text, GE Industrial Systems CIMPLICITY Text Version HMI Screen, Alphacam Compiled Text (Planit), Online Course Text (Microsoft Corporation), Pretty Good Privacy (PGP) Ciphertext File (PGP Corporation), Windows Terminal Server INI Backup File (Microsoft Corporation), Visual Basic User Control Binary File, CTRAN/W DEFINE Compressed Data File (Geo-Slope International), Nokia PC Suite Backup Contact File (Nokia)</td>
     </tr>
   </tbody>
 </table>
@@ -238,16 +266,20 @@ Currently the following name spaces exist.
 <table>
   <tbody>
     <tr>
-      <td>contao</td><td>The Contao core.</td>
+      <td>contao</td>
+      <td>The Contao core.</td>
     </tr>
     <tr>
-      <td>php:[feature]</td><td>Relates to a certain php feature. See php features in</td>\ref{sec:package relationship name spaces php features}
+      <td>php:[feature]</td>
+      <td>Relates to a certain php feature. See php features in</td>\ref{sec:package relationship name spaces php features}
     </tr>
     <tr>
-      <td>pear:[package]</td><td>Relates to a certain pear package. See pear packages in</td>\ref{sec:package relationship name spaces pear packages}.
+      <td>pear:[package]</td>
+      <td>Relates to a certain pear package. See pear packages in</td>\ref{sec:package relationship name spaces pear packages}.
     </tr>
     <tr>
-      <td>db:[type]</td><td>Relates to a certain database,</td>\ie db:mysql. See database drivers in \ref{sec:package relationship name spaces database drivers}.
+      <td>db:[type]</td>
+      <td>Relates to a certain database,</td>\ie db:mysql. See database drivers in \ref{sec:package relationship name spaces database drivers}.
     </tr>
   </tbody>
 </table>
@@ -288,21 +320,31 @@ This potentional threat can be categorized in the following sections:
 <table>
   <thead>
     <tr>
-      <td>Category</td><td>threat factor</td><td>Description</td>
+      <td><strong>Category</strong></td>
+      <td><strong>threat factor</strong></td>
+      <td><strong>Description</strong></td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>lossless</td><td>none</td><td>Up- and downgrade can be performed without data loss.</td>
+      <td>lossless</td>
+      <td>none</td>
+      <td>Up- and downgrade can be performed without data loss.</td>
     </tr>
     <tr>
-      <td>dropUnused</td><td>almost none</td><td>Up- and downgrade will remove data that will not be in use any more.</td>
+      <td>dropUnused</td>
+      <td>almost none</td>
+      <td>Up- and downgrade will remove data that will not be in use any more.</td>
     </tr>
     <tr>
-      <td>partial</td><td>might be dangerous</td><td>Up- and downgrade might remove user data. Therefore manual intervention is suggested.</td>
+      <td>partial</td>
+      <td>might be dangerous</td>
+      <td>Up- and downgrade might remove user data. Therefore manual intervention is suggested.</td>
     </tr>
     <tr>
-      <td>undefined</td><td>dragons live here!</td>&This setting is implicit defined when the developer has not defined a setting at all. The result might be user data loss, in worst case scenario resulting in total data loss.
+      <td>undefined</td>
+      <td>dragons live here!</td>
+      <td>This setting is implicit defined when the developer has not defined a setting at all. The result might be user data loss, in worst case scenario resulting in total data loss.</td>
     </tr>
   </tbody>
 </table>
@@ -337,9 +379,9 @@ In above example we have the following definitions:
 <table>
   <thead>
     <tr>
-      <td>Rule</td>
-      <td>Version</td>
-      <td>Description</td>
+      <td><strong>Rule</strong></td>
+      <td><strong>Version</strong></td>
+      <td><strong>Description</strong></td>
     </tr>
   </thead>
   <tbody>
