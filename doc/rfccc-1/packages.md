@@ -41,7 +41,7 @@ A real world versioning example
 
 Let's imagine an agency has altered an extension for ACME Inc. and is providing this extension via their own repository.
 To eliminate problems with the vanilla extension in the main repository, the agency appends the extension "acme" to the version and results in the version
-\DisplFile{1.2.3-acme1}.
+`1.2.3-acme1`.
 
 Using this scheme one can prevent unwanted upgrading (see \ref{sec:versioncompatibility}).
 
@@ -51,12 +51,12 @@ In contrast to the other components of the version, the build number is the only
 Version compatibility
 ---------------------
 
-Thanks to the \techTerm{extension} component of the version, it is possible to tag modified variants of an extension. These variants are in most cases incompatible to newer (vanilla) releases of the same extension.
+Thanks to the `extension` component of the version, it is possible to tag modified variants of an extension. These variants are in most cases incompatible to newer (vanilla) releases of the same extension.
 
 To address these potentional problems, the following version compatibility rules are in place.
 
 Versions are compatible if, and only if, any of the following conditions is met:
-* ...the alphabetic representation of the \techTerm{extension} component is identical.
+* ...the alphabetic representation of the `extension` component is identical.
 * ...the extension component is omitted on both versions.
 
 <table>
@@ -101,7 +101,7 @@ A given version A ist identical to version B if, and only if:
 
 ### Version comparison with extension component
 
-If an \techTerm{extension} component is present, the following additional rules are to be applied in addition to the rules mentioned in \ref{sec:version comparison without extension}.
+If an `extension` component is present, the following additional rules are to be applied in addition to the rules mentioned in \ref{sec:version comparison without extension}.
 
 A given version A is bigger (aka. newer) than version B if, and only if:
 * A.extensionA = B.extensionA \& A.extensionN > B.extensionN
@@ -156,7 +156,7 @@ As usage example serves extension.xml\supref{lst:extension.xml}.
 
 ### Package relationships - dependencies, conflicts and preferations
 
-A relationship of an extension to another extension can be defined in form of a \techTerm{dependency}, a \techTerm{conflict} or a \techTerm{preferation}.
+A relationship of an extension to another extension can be defined in form of a `dependency`, a `conflict` or a `preferation`.
 Each of these relationships can be towards any version of the mentioned extension or even be narrowed down to certain version numbers.
 
 ### Versioning of relationships
@@ -164,14 +164,14 @@ Each of these relationships can be towards any version of the mentioned extensio
 As dependencies and conflicts are often regarding certain versions or a certain range of versions.
 
 In the definition of an relationship, we may use the following attributes:
-* \techTerm{match} which means an exact match on the version (X=Y).
-* \techTerm{lowest} which is implicit inclusive and tells the lower end of the range (X>=Y).
-* \techTerm{highest} which is implicit exclusive and tells the upper end of the range (X<Y).
+* `match` which means an exact match on the version (X=Y).
+* `lowest` which is implicit inclusive and tells the lower end of the range (X>=Y).
+* `highest` which is implicit exclusive and tells the upper end of the range (X<Y).
 
-The attributes \techTerm{lowest} and \techTerm{highest} do not have to be used in combination, therefore it is possible to define an open range.
+The attributes `lowest` and `highest` do not have to be used in combination, therefore it is possible to define an open range.
 When used in combination, they define a closed range.
 
-The attributes \techTerm{lowest} and \techTerm{highest} must not be used in conjunction with the attribute \techTerm{match}. If used in conjunction with \techTerm{match}, the exact match takes precedence over the other attributes and therefore is always exact.
+The attributes `lowest` and `highest` must not be used in conjunction with the attribute `match`. If used in conjunction with `match`, the exact match takes precedence over the other attributes and therefore is always exact.
 
 In the package information file, this might look like the following when defining a conflict for a certain db driver (in this case mysql).
 
@@ -216,7 +216,7 @@ Often it is required to have a certain feature available but multiple ways exist
 
 Instead of defining features within the repository client and therefore having to update the client all the time when a new feature has been defined, we provide the developer with the possibility to define alternative paths by specifying groups of dependencies.
 
-When defining groups of dependencies, the first positive match found is accepted and the group evaluation will be stopped. Note that the order in the XML has no meaning and therefore the attribute \techTerm{preferation} must be used to define which dependency is the most preferable.
+When defining groups of dependencies, the first positive match found is accepted and the group evaluation will be stopped. Note that the order in the XML has no meaning and therefore the attribute `preferation` must be used to define which dependency is the most preferable.
 
 **XML example: alternative relationships**
 ```xml
