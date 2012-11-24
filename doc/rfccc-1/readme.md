@@ -4,7 +4,7 @@ Contao Extension Repository 3
 Contents
 --------
 
-* [Abstract](readme.md)
+* [Abstract](abstract.md)
 * [Changelog](changelog.md)
 * [Missing topics](missing_topics.md)
 * [Packages](packages.md)

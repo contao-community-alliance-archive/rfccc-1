@@ -8,7 +8,7 @@ The versioning is based on the classic version numbering scheme with extensions.
 
 A version number is combined like the following.
 
-*Version number in EBNF*
+**Version number in EBNF**
 ```
 DOT            = <the dot (".") character>
 UPALPHA        = <any US-ASCII upper case letter "A".."Z">
@@ -61,7 +61,7 @@ Versions are compatible if, and only if, any of the following conditions is met:
 
 <table>
 <tr>
-<td>*Version 1*</td>  <td>*=/!*</td>  <td>*Version 2*</td>
+<td>**Version 1**</td>  <td>**=/!**</td>  <td>**Version 2**</td>
 </tr>
 <tr>
 <td>1.2.3</td>        <td>=</td>      <td>4.5.6</td>
@@ -113,9 +113,9 @@ At this, one must pay attention to the fact that the alphabetical representation
 
 If the alphabetical representation (extensionA) is different for two versions, they have to be regarded as incompatible according to \ref{sec:versioncompatibility}. When no numeric representation (extensionN) is present in a version with extension, the version has to be evaluated as if a numeric part has been set with the value of "1".
 
-*Version comparison example*
+**Version comparison example**
 <table>
-<td>*field*</td><td>*Version 1*</td><td>*Version 2*</td>
+<td>**field**</td><td>**Version 1**</td><td>**Version 2**</td>
 <td>full version</td><td>1.2-acme3.4</td><td>1.2-acme4.1</td>
 <td>major</td><td>1</td><td>1</td>
 <td>minor</td><td>2</td><td>2</td>
@@ -175,7 +175,7 @@ The attributes \techTerm{lowest} and \techTerm{highest} must not be used in conj
 
 In the package information file, this might look like the following when defining a conflict for a certain db driver (in this case mysql).
 
-*XML example: conflict example mysql*
+**XML example: conflict example mysql**
 ```xml
 ...
 <ctx:conflict name="db:mysql">
@@ -218,7 +218,7 @@ Instead of defining features within the repository client and therefore having t
 
 When defining groups of dependencies, the first positive match found is accepted and the group evaluation will be stopped. Note that the order in the XML has no meaning and therefore the attribute \techTerm{preferation} must be used to define which dependency is the most preferable.
 
-*XML example: alternative relationships*
+**XML example: alternative relationships**
 ```xml
 ...
 <ctx:group preferation="php:soap nusoap">
@@ -243,7 +243,7 @@ That's the reason why the developer needs a way to define what potential threat 
 This potentional threat can be categorized in the following sections:
 
 <table>
-<td>*Category*</td><td>*threat factor*</td><td>*Description*</td>
+<td>**Category**</td><td>**threat factor**</td><td>**Description**</td>
 <td>lossless</td><td>none</td><td>Up- and downgrade can be performed without data loss.</td>
 <td>dropUnused</td><td>almost none</td><td>Up- and downgrade will remove data that will not be in use any more.</td>
 <td>partial</td><td>might be dangerous</td><td>Up- and downgrade might remove user data. Therefore manual intervention is suggested.</td>
@@ -261,7 +261,7 @@ As "undefined" is an implicit type, the developer can not add a description text
 
 A corresponding upgrade/downgrade compatibility might look like the following:
 
-*XML example: upgrade/downgrade compatibility*
+**XML example: upgrade/downgrade compatibility**
 ```xml
 ...
 <ctx:extension version="1.2.3">
@@ -278,7 +278,7 @@ When defining such compatibilities, always the most recent version is defined fo
 
 In above example we have the following definitions:
 <table>
-<td>*Rule*</td><td>*Version*</td><td>*Description*</td>
+<td>**Rule**</td><td>**Version**</td><td>**Description**</td>
 <td>upgrade</td><td>1.1</td><td>All versions 1.1 <= X < 1.2.3 can be updated without data loss.</td>
 <td>upgrade</td><td>1.0</td><td>All versions 1.0 <= X < 1.1 can be updated with partial data loss.</td>
 <td>downgrade</td><td>1.2</td><td>To all versions 1.2 <= X < 1.2.3 can be downgraded without data loss.</td>
@@ -298,7 +298,7 @@ When creating an unsigned package, the file is not required and therefore may be
 The file syntax is simple.
 Every line is made up of a sha1 hash followed by a space character and the full file path specifying the destination.
 
-*FILES example: package contents information file*
+**FILES example: package contents information file**
 ```
 ...
 4543a0fe56f27277948469c15284ac25 CONTAO/system/modules/myExtension/Class1.php
